@@ -15,3 +15,7 @@
  *= require foundation_and_overrides
 
  */
+
+.event-list {
+  margin-top: 20px;
+}
