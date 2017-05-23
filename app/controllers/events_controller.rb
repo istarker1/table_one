@@ -1,7 +1,11 @@
 class EventsController < ApplicationController
 
   def index
-    @events = current_user.events
+    if current_user.nil?
+      redirect_to new_user_session_path
+    else
+      @events = current_user.events
+    end
   end
 
   def show
