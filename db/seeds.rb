@@ -5,3 +5,13 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+
+relationships = [
+  "Mother", "Father", "Aunt / Uncle", "Grandmother / Grandfather",
+  "Cousin (Mother's side)", "Cousin (Father's side)"
+].sort!
+
+relationships.each do |r|
+  Relationship.create(name: r, universal: true)
+end

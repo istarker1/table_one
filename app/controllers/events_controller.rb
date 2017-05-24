@@ -9,7 +9,9 @@ class EventsController < ApplicationController
   end
 
   def show
-
+    @event = Event.find(params[:id])
+    @guests = @event.guests
+    @new_guest = Guest.new
   end
 
   def edit

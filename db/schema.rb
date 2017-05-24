@@ -10,16 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170524005138) do
+ActiveRecord::Schema.define(version: 20170524154754) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "couples", force: :cascade do |t|
+    t.string  "first_name", null: false
+    t.string  "last_name",  null: false
+    t.text    "notes"
+    t.integer "event_id",   null: false
+    t.index ["event_id"], name: "index_couples_on_event_id", using: :btree
+  end
 
   create_table "events", force: :cascade do |t|
     t.string   "name",             null: false
     t.integer  "table_size_limit", null: false
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.integer  "side_a"
+    t.integer  "side_b"
   end
 
   create_table "guests", force: :cascade do |t|
