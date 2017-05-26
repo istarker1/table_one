@@ -22,14 +22,19 @@ class EventsController < ApplicationController
 
   def create
     @errors = nil
-    @side_a = Couple.new(side_a_params)
-    @side_b = Couple.new(side_b_params)
+    @side_a, @side_b = Couple.new(side_a_params), Couple.new(side_b_params)
     @event = Event.new(event_params)
-    binding.pry
-    save_couple(@side_a, @side_b)
-    if @errors == nil && @event.save
-      flash[:notice] = "Event created!"
-      redirect_to @event
+    if @event.save
+      @side_a.event = @event
+      @side_b.event = @event
+      if save_couple(@side_a, @side_b)
+        @host = Host.create(event_id: @event.id, user_id: current_user.id)
+        flash[:notice] = "Event created!"
+        redirect_to @event
+      else
+        # binding.pry
+        render action: 'new'
+      end
     else
       @errors = @event.errors.full_messages
       render action: 'new'
@@ -60,9 +65,10 @@ class EventsController < ApplicationController
     if side_a.valid? && side_b.valid?
       side_a.save
       side_b.save
-      @errors = nil
+      true
     else
-      @errors = [side_a.errors.full_messages, side_b.errors.full_messages].join(", ")
+      @errors = [side_a.errors.full_messages.join(" "), side_b.errors.full_messages.join(" ")]
+      false
     end
   end
 

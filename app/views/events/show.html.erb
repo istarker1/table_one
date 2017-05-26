@@ -1,3 +1,5 @@
+<title><%= @event.name %></title>
+
 <%= link_to "Add a guest", new_event_guest_path(@event) %>
 
 <ul>
@@ -5,7 +7,6 @@
     <li><%= "#{g.first_name} #{g.last_name}" %></li>
   <% end %>
 </ul>
-
 
 <ul class="vertical menu" data-accordion-menu>
   <li>
