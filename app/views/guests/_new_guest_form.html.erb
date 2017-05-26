@@ -1,0 +1,41 @@
+<!-- <legend>Add a Guest</legend> -->
+  <%= form_for([@event, @guest]) do |f| %>
+    <div class="row">
+      <div class="medium-6 columns">
+        <label><%= f.label :first_name %>
+            <%= f.text_field :first_name %><br />
+        </label>
+      </div>
+      <div class="medium-6 columns">
+        <label><%= f.label :last_name %>
+            <%= f.text_field :last_name %><br />
+        </label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="medium-6 columns">
+        <label><%= f.label :relationship %>
+            <%= f.select :relationship_id, @relationships %>
+        </label>
+      </div>
+
+      <fieldset class="medium-6 columns">
+        <label><%= f.label :side %></label>
+        <% @event.sides.each do |s| %>
+          <%= f.radio_button :side, s.id %>
+          <%= label :side, s.first_name %>
+        <% end %>
+      </fieldset>
+    </div>
+
+    <div class="long-12 columns">
+      <label><%= f.label :notes %>
+          <%= f.text_area :notes %><br />
+      </label>
+    </div>
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <% end %>

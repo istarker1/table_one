@@ -17,5 +17,15 @@ class Event < ApplicationRecord
     Couple.find(side_b)
   end
 
+  def sides
+    [find_side_a, find_side_b]
+  end
+
+  def relationships
+    rel = []
+    Relationship.where(universal: true).map { |e| rel << [e.name, e.id]  }
+    Relationship.where(event_id: id).map { |e| rel << [e.name, e.id]  }
+    rel
+  end
 
 end

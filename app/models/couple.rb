@@ -3,4 +3,5 @@ class Couple < ApplicationRecord
   has_many :guests, through: :event
 
   validates :first_name, :last_name, :event, presence: true
+
 end

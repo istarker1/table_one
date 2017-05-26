@@ -1,1 +1,19 @@
-<%= render 'new_guest_form' %>
+<%= link_to "Add a guest", new_event_guest_path(@event) %>
+
+<ul>
+  <% @guests.each do |g| %>
+    <li><%= "#{g.first_name} #{g.last_name}" %></li>
+  <% end %>
+</ul>
+
+
+<ul class="vertical menu" data-accordion-menu>
+  <li>
+    <a href="#">Guests</a>
+    <ul class="menu vertical nested">
+      <% @guests.each do |g| %>
+        <li><%= "#{g.first_name} #{g.last_name}" %></li>
+      <% end %>
+    </ul>
+  </li>
+</ul>
