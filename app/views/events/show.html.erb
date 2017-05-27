@@ -1,12 +1,7 @@
-<title><%= @event.name %></title>
+<%= flash[:notice] %>
 
-<%= link_to "Add a guest", new_event_guest_path(@event) %>
-
-<ul>
-  <% @guests.each do |g| %>
-    <li><%= "#{g.first_name} #{g.last_name}" %></li>
-  <% end %>
-</ul>
+<div class="title"><%= "#{@event.name} - Table Size: #{@event.table_size_limit}" %></div>
+<br />
 
 <ul class="vertical menu" data-accordion-menu>
   <li>
@@ -18,3 +13,6 @@
     </ul>
   </li>
 </ul>
+
+<br />
+<%= link_to "Add a guest", new_event_guest_path(@event) %>

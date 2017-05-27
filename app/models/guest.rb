@@ -3,4 +3,8 @@ class Guest < ApplicationRecord
   belongs_to :event
 
   validates :first_name, :last_name, :side, :relationship_id, :event, presence: true
+
+  def guest_side
+    Couple.find(side)
+  end
 end

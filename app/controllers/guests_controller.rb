@@ -8,12 +8,16 @@ class GuestsController < ApplicationController
   end
 
   def create
+    @event = Event.find(params[:event_id])
     @guest = Guest.new(guest_params)
-    binding.pry
+    @guest.event_id = params[:event_id]
     if @guest.save
-
+      flash[:notice] = "Guest added!"
+      redirect_to @event
     else
-
+      @errors = @guest.errors.full_messages
+      @relationships = @event.relationships
+      render action: 'new'
     end
   end
 
@@ -21,7 +25,7 @@ class GuestsController < ApplicationController
   private
 
   def guest_params
-    params.require(:guest).permit(:first_name, :last_name, :relationship,
+    params.require(:guest).permit(:first_name, :last_name, :relationship_id,
       :side, :notes)
   end
 

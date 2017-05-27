@@ -32,7 +32,6 @@ class EventsController < ApplicationController
         flash[:notice] = "Event created!"
         redirect_to @event
       else
-        # binding.pry
         render action: 'new'
       end
     else

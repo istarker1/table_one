@@ -8,3 +8,5 @@ class CreateCouples < ActiveRecord::Migration[5.0]
     end
   end
 end
+
+# Not :sides because event could only have one `side_id`

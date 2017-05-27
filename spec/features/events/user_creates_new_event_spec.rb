@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-feature 'create a new event' do
-  scenario 'user adds an event' do
+feature 'create a new guest' do
+  scenario 'user adds a guest to an event' do
     user = FactoryGirl.create(:user)
     visit root_path
     click_link 'Sign In'
@@ -62,6 +62,4 @@ feature 'create a new event' do
     # Does not report side_b error due to `if side_a.valid? && side_b.valid?`
     # Does not check `side_b.valid?` because `side_a.valid?` is already false
   end
-
-
 end
