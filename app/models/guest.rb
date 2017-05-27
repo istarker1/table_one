@@ -7,4 +7,8 @@ class Guest < ApplicationRecord
   def guest_side
     Couple.find(side)
   end
+
+  def guest_relationship
+    Relationship.find(relationship_id)
+  end
 end

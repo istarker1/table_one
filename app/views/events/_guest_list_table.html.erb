@@ -1,0 +1,23 @@
+<table class="guest-list hover">
+  <thead>
+    <tr>
+      <th width="200">Guest Name</th>
+      <th width="200">Side</th>
+      <th width="100">Relationship</th>
+      <th width="150"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @guests.each do |guest| %>
+      <tr>
+        <td><%= "#{guest.first_name} #{guest.last_name}" %></td>
+        <td><%= "#{guest.guest_side.first_name}" %></td>
+        <td><%= "#{guest.guest_relationship.name}" %></td>
+        <td><%= link_to "Edit", edit_event_guest_path(guest) %> /
+          <%= link_to "Delete", event_guest_path(guest),
+          method: :delete, data: { confirm: 'Are you sure?'} %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

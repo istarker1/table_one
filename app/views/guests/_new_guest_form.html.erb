@@ -14,12 +14,29 @@
     </div>
 
     <div class="row">
-      <div class="medium-6 columns">
+      <div class="medium-5 column universal-relationship">
         <label><%= f.label :relationship %>
             <%= f.select :relationship_id, @relationships %>
         </label>
       </div>
 
+      <span class="form-text">Custom Relationship?</span>
+      <div class="small-2 columns lswitch">
+        <input class="switch-input" id="exampleSwitch" type="checkbox" name="exampleSwitch">
+        <label class="switch-paddle" for="exampleSwitch">
+          <span class="show-for-sr">Download Kittens</span>
+        </label>
+      </div>
+
+      <div class="small-5 columns">
+        <label><%= f.label :relationship %>
+            <%= f.text_field :relationship %>
+        </label>
+      </div>
+    </div>
+
+
+    <div class="row">
       <fieldset class="medium-6 columns">
         <label><%= f.label :side %></label>
         <% @event.sides.each do |s| %>

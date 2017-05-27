@@ -8,9 +8,14 @@
 
 
 relationships = [
-  "Mother", "Father", "Aunt / Uncle", "Grandmother / Grandfather",
-  "Cousin (Mother's side)", "Cousin (Father's side)"
-].sort!
+  "Choose one or create your own",
+  "Mother",
+  "Father",
+  "Aunt / Uncle",
+  "Grandmother / Grandfather",
+  "Cousin (Mother's side)",
+  "Cousin (Father's side)"
+  ]
 
 relationships.each do |r|
   Relationship.create(name: r, universal: true)

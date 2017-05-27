@@ -7,9 +7,7 @@
   <li>
     <a href="#">Guests</a>
     <ul class="menu vertical nested">
-      <% @guests.each do |g| %>
-        <li><%= "#{g.first_name} #{g.last_name}" %></li>
-      <% end %>
+      <%= render 'guest_list_table' %>
     </ul>
   </li>
 </ul>
