@@ -19,3 +19,7 @@
 .event-list {
   margin-top: 20px;
 }
+
+#all_plusones {
+  list-style: none;
+}

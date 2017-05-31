@@ -20,20 +20,20 @@
         </label>
       </div>
 
-      <span class="form-text">Custom Relationship?</span>
       <div class="small-2 columns lswitch">
+        <span class="form-text">Custom Relationship?</span>
         <input class="switch-input" id="exampleSwitch" type="checkbox" name="exampleSwitch">
         <label class="switch-paddle" for="exampleSwitch">
           <span class="show-for-sr">Download Kittens</span>
         </label>
       </div>
 
-      <div class="small-5 columns">
+      <div class="medium-5 columns">
         <label><%= f.label :relationship %>
             <%= f.text_field :relationship %>
         </label>
       </div>
-    </div>
+    </div> <!-- class="row" -->
 
 
     <div class="row">
@@ -46,12 +46,22 @@
       </fieldset>
     </div>
 
-    <div class="long-12 columns">
-      <label><%= f.label :notes %>
-          <%= f.text_area :notes %><br />
-      </label>
+    <div class="row">
+      <div class="long-12 columns">
+        <label><%= f.label :notes %>
+            <%= f.text_area :notes %><br />
+        </label>
+      </div>
     </div>
 
+    <div class="row">
+      <div class="medium-6 columns" id="all_plusones">
+        <label>Add a Plus-One</label>
+        <%= render 'plusone_form' %>
+      </div>
+    </div>
+
+    <br />
     <div class="actions">
       <%= f.submit %>
     </div>

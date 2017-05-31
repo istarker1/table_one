@@ -1,3 +1,5 @@
 <%= render 'if_errors_block' %>
 
 <%= render 'new_guest_form' %>
+
+<%= link_to "Back to #{@event.name}", event_path(@event) %>

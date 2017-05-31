@@ -31,7 +31,7 @@ RSpec.describe User, type: :model do
   #       u.email = "user@example.com"
   #       u.password = "password"
   #     end
-  #     copied_user = User.build! do |u|
+  #     copied_user = User.create! do |u|
   #       u.first_name = "John"
   #       u.last_name = "Doe"
   #       u.email = "user@example.com"
@@ -40,5 +40,6 @@ RSpec.describe User, type: :model do
   #     expect(copied_user.save).to raise_error(ActiveRecord::RecordInvalid,'Validation failed: Email has already been taken')
   #   end
   # end
+          # returns `Email already taken so works but test fails`
 
 end

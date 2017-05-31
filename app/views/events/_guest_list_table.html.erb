@@ -4,6 +4,7 @@
       <th width="200">Guest Name</th>
       <th width="200">Side</th>
       <th width="100">Relationship</th>
+      <th width="100">Plus One</th>
       <th width="150"></th>
     </tr>
   </thead>
@@ -13,6 +14,7 @@
         <td><%= "#{guest.first_name} #{guest.last_name}" %></td>
         <td><%= "#{guest.guest_side.first_name}" %></td>
         <td><%= "#{guest.guest_relationship.name}" %></td>
+        <td><%= "#{guest.plusones[0].first_name} #{guest.plusones[0].last_name}" if guest.plusones != [] %>
         <td><%= link_to "Edit", edit_event_guest_path(guest) %> /
           <%= link_to "Delete", event_guest_path(guest),
           method: :delete, data: { confirm: 'Are you sure?'} %>
