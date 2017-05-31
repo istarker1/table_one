@@ -11,10 +11,14 @@ relationships = [
   "Choose one or create your own",
   "Mother",
   "Father",
-  "Aunt / Uncle",
-  "Grandmother / Grandfather",
+  "Sister / Brother"
+  "Aunt / Uncle (Mother's side)",
+  "Aunt / Uncle (Father's side)",
+  "Grandmother / Grandfather (Mother's side)",
+  "Grandmother / Grandfather (Father's side)",
   "Cousin (Mother's side)",
-  "Cousin (Father's side)"
+  "Cousin (Father's side)",
+  "Wedding Party"
   ]
 
 relationships.each do |r|

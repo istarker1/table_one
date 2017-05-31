@@ -29,6 +29,7 @@ class EventsController < ApplicationController
       @side_b.event = @event
       if save_couple(@side_a, @side_b)
         @host = Host.create(event_id: @event.id, user_id: current_user.id)
+        @event.update(side_a: @side_a.id, side_b: @side_b.id)
         flash[:notice] = "Event created!"
         redirect_to @event
       else
