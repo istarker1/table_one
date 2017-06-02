@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170528150747) do
+ActiveRecord::Schema.define(version: 20170602162700) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20170528150747) do
     t.text    "notes"
     t.integer "relationship_id", null: false
     t.integer "event_id",        null: false
+    t.integer "table_id"
     t.index ["event_id"], name: "index_guests_on_event_id", using: :btree
     t.index ["relationship_id"], name: "index_guests_on_relationship_id", using: :btree
   end
@@ -53,6 +54,7 @@ ActiveRecord::Schema.define(version: 20170528150747) do
     t.string  "last_name",  null: false
     t.integer "guest_id"
     t.text    "notes"
+    t.integer "table_id"
     t.index ["guest_id"], name: "index_plusones_on_guest_id", using: :btree
   end
 
@@ -61,6 +63,13 @@ ActiveRecord::Schema.define(version: 20170528150747) do
     t.integer "event_id"
     t.boolean "universal", default: false
     t.index ["event_id"], name: "index_relationships_on_event_id", using: :btree
+  end
+
+  create_table "tables", force: :cascade do |t|
+    t.integer "table_number",     null: false
+    t.integer "table_size_limit", null: false
+    t.integer "event_id"
+    t.index ["event_id"], name: "index_tables_on_event_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|

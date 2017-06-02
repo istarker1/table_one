@@ -1,13 +1,13 @@
 class GuestsController < ApplicationController
 
-  def new
-    @event = Event.find(params[:event_id])
-    @guests = @event.guests
-    @guest = Guest.new
-    @relationships = @event.relationships
-    @relationship = Relationship.new
-    @plusone = Plusone.new
-  end
+  # def new
+  #   @event = Event.find(params[:event_id])
+  #   @guests = @event.guests
+  #   @guest = Guest.new
+  #   @relationships = @event.relationships
+  #   @relationship = Relationship.new
+  #   @plusone = Plusone.new
+  # end
 
   def create
     @event = Event.find(params[:event_id])

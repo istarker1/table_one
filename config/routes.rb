@@ -6,5 +6,6 @@ Rails.application.routes.draw do
 
   resources :events do
     resources :guests
+    resources :tables
   end
 end

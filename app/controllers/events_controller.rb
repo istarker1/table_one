@@ -12,6 +12,10 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     @guests = @event.guests
     @relationships = @event.relationships
+    #------ for guest form
+    @guest = Guest.new
+    @relationship = Relationship.new
+    @plusone = Plusone.new
   end
 
   def new

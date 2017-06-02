@@ -9,13 +9,12 @@
 
 relationships = [
   "Choose one or create your own",
-  "Mother",
-  "Father",
-  "Sister / Brother"
+  "Mother / Father",
+  "Grandparent (Mother's side)",
+  "Grandparent (Father's side)",
   "Aunt / Uncle (Mother's side)",
   "Aunt / Uncle (Father's side)",
-  "Grandmother / Grandfather (Mother's side)",
-  "Grandmother / Grandfather (Father's side)",
+  "Sister / Brother",
   "Cousin (Mother's side)",
   "Cousin (Father's side)",
   "Wedding Party"

@@ -3,10 +3,20 @@ class ApplicationController < ActionController::Base
 
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
+
+  def user_logged_in?
+    if current_user
+      true
+    else
+      flash[:notice] = "You are not authorized to view this page"
+      redirect_to motorcycles_path
+    end
+  end
+
   protected
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name])
   end
-  
+
 end
