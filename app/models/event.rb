@@ -27,6 +27,7 @@ class Event < ApplicationRecord
     rel = []
     Relationship.where(universal: true).map { |e| rel << [e.name, e.id]  }
     Relationship.where(event_id: id).map { |e| rel << [e.name, e.id]  }
+    rel.shift
     rel
   end
 
@@ -47,28 +48,59 @@ class Event < ApplicationRecord
     Guest.where(side: side_b)
   end
 
+  def event_tables
+    Table.where(event_id: id)
+  end
+
   # ----- seating arrangement building methods -----
 
   def create_tables
     x = 1
     table_count = (all_guests.length / table_size_limit.to_f).ceil
     while x <= table_count
-      Table.create(table_number: x, table_size_limit: table_size_limit, event_id: self)
+      Table.create(table_number: x, table_size_limit: table_size_limit, event_id: id)
       x += 1
     end
   end
 
   def create_arrangement
-    side_a = side_a_guests
-    side_b = side_b_guests
-    all_tables = tables       # self.tables
-    all_tables.each do |t|
-      relationships.each do |r|
-
-      end
-    end
+    a, b = side_a_guests.to_a, side_b_guests.to_a
+    all_tables, all_relationships = tables, relationships  # self.tables / self.relationships
+    sort_immediate_family(a)
+    sort_immediate_family(b)
+    binding.pry
+    # all_tables.each do |t|
+    #   relationships.each do |r|
+    #     x = []
+    #     side_a_guests.each do |g|
+    #     end
+    #   end
+    # end
 
   end
+
+  def sort_immediate_family(side)
+    event_tables.each do |t|          # WHY DOESN'T JUST `tables` WORK???
+      # binding.pry
+      if t.empty?
+        side.delete_if do |guest|
+          if (guest.relationship.id == relationships[0][1] || # mother / father
+          guest.relationship.id == relationships[1][1] ||       # grandparents
+          guest.relationship.id == relationships[2][1] ||         # grandparents
+          guest.relationship.id == relationships[3][1] ||
+          guest.relationship.id == relationships[4][1]) &&
+            t.guests.length + t.plusones.length <= t.table_size_limit
+            if !guest.nil?
+              guest.update(table_id: t.id)
+              guest.plusones.each do |p1|
+                p1.update(table_id: t.id)
+              end                     # guest.plusones.each do
+            end                       # if !guest.nil?
+          end                         # if .relationship[...] && < size_limit
+        end                           # a.delete_if do
+      end                             # if t.empty?
+    end                               # tables.each do
+  end                                 # sort_immediate_family(side_)
 
 end
 

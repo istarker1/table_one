@@ -18,7 +18,7 @@ feature 'create a new guest' do
     click_link "Add a guest"
     fill_in 'guest_first_name', with: "Pops"
     fill_in 'guest_last_name', with: "Jones"
-    select "Father", from: "Relationship"
+    select "Mother / Father", from: "Relationship"
     choose "guest_side_#{side_a.id}"
     fill_in "guest_notes", with: "Test guest"
     click_button "Create Guest"

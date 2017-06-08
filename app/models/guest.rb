@@ -1,5 +1,5 @@
 class Guest < ApplicationRecord
-  has_one :relationship
+  belongs_to :relationship
   belongs_to :event
   has_many :plusones
   belongs_to :table

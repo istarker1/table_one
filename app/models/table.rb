@@ -4,4 +4,8 @@ class Table < ApplicationRecord
   has_many :plusones
 
   validates :table_number, :table_size_limit, presence: true
+
+  def empty?
+    guests.length + plusones.length == 0
+  end
 end
