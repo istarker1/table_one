@@ -1,0 +1,11 @@
+<% x = 0 %>
+<% @event.tables.each do |table| %>
+  <ul>Table <%="#{table.id} Seated: #{table.count}"%>
+    <% table.all.each do |guest| %>
+      <li><%="#{guest.first_name} #{guest.last_name}"%></li>
+      <% x += 1 %>
+    <%end%>
+  </ul>
+<% end %>
+
+Total Guests: <%= "#{x}" %>

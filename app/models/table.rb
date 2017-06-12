@@ -8,4 +8,13 @@ class Table < ApplicationRecord
   def empty?
     guests.length + plusones.length == 0
   end
+
+  def all
+    guests + plusones
+  end
+
+  def count
+    all.length
+  end
+  
 end

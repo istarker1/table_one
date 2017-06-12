@@ -41,7 +41,7 @@ feature 'create a seating arrangement' do
       FactoryGirl.create(:plusone, first_name: "B Uncle", guest: Guest.last)
     end
   # create A Coworkers WITHOUT Plusones
-    a_coworker_relationship = FactoryGirl.create(:relationship, name: "A Coworkers")
+    a_coworker_relationship = FactoryGirl.create(:relationship, name: "A Coworkers", event_id: event.id)
     4.times do
       FactoryGirl.create(:guest, first_name: "A Coworker", side: side_a.id,
         relationship_id: a_coworker_relationship.id, event: event)
@@ -53,7 +53,7 @@ feature 'create a seating arrangement' do
       FactoryGirl.create(:plusone, first_name: "A Coworker Plusone", guest: Guest.last)
     end
   # create B Coworkers WITHOUT Plusones
-    b_coworker_relationship = FactoryGirl.create(:relationship, name: "B Coworkers")
+    b_coworker_relationship = FactoryGirl.create(:relationship, name: "B Coworkers", event_id: event.id)
     4.times do
       FactoryGirl.create(:guest, first_name: "B Coworker", side: side_b.id,
         relationship_id: b_coworker_relationship.id, event: event)
@@ -98,8 +98,9 @@ feature 'create a seating arrangement' do
     click_link "#{event.name}"
     click_link "Create Seating Arrangement"
 
-    expect(page).to have_content("Table 2")
-    # save_and_open_page
+    expect(page).to have_content("Table 6")
+    expect(page).to have_content("Total Guests: 61")
+    save_and_open_page
   end
 end
 
