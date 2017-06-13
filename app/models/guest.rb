@@ -13,4 +13,8 @@ class Guest < ApplicationRecord
   def guest_relationship
     Relationship.find(relationship_id)
   end
+
+  def count
+    1 + plusones.length
+  end
 end
