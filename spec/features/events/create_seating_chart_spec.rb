@@ -4,7 +4,7 @@ require 'database_cleaner'
 DatabaseCleaner.strategy = :truncation
 
 feature 'create a seating arrangement' do
-  xscenario 'user creates a seating arrangement' do
+  scenario 'user creates a simple seating arrangement' do
 
     DatabaseCleaner.clean
 
@@ -98,8 +98,7 @@ feature 'create a seating arrangement' do
     click_link "#{event.name}"
     click_link "Create Seating Arrangement"
 
-    save_and_open_page
-    expect(page).to have_content("Table 6")
+    expect(page).to have_content("Table 1 Seated: 8")
     expect(page).to have_content("Total Guests: 61")
 
   end
@@ -108,7 +107,7 @@ feature 'create a seating arrangement' do
   #--------------------------------------
   #--------------------------------------
 
-  scenario 'user creates a different seating arrangement' do
+  scenario 'user creates a seating arrangement with groups that take up more than one table' do
 
     DatabaseCleaner.clean
 
@@ -195,9 +194,9 @@ feature 'create a seating arrangement' do
     click_button 'Log in'
     click_link "#{event.name}"
     click_link "Create Seating Arrangement"
-    save_and_open_page
-    expect(page).to have_content("Table 6")
-    expect(page).to have_content("Total Guests: 61")
+
+    expect(page).to have_content("Table 1 Seated: 10")
+    expect(page).to have_content("Total Guests: 79")
 
   end
 end

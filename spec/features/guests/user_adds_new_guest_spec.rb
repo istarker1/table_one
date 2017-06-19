@@ -62,7 +62,7 @@ feature 'create a new guest' do
     side_a = FactoryGirl.create(:couple, event_id: event.id)
     side_b = FactoryGirl.create(:couple, event_id: event.id)
     event.update(side_a: side_a.id, side_b: side_b.id)
-    relationship = FactoryGirl.create(:relationship)
+    load "#{Rails.root}/db/seeds.rb"
     visit root_path
     click_link 'Sign In'
     fill_in 'Email', with: "#{user.email}"
@@ -106,3 +106,5 @@ feature 'create a new guest' do
   end
 
 end
+
+# rspec spec/features/guests/user_adds_new_guest_spec.rb

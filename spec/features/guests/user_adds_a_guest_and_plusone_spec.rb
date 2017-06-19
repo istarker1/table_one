@@ -39,7 +39,7 @@ feature 'create a new guest and plusone' do
     side_a = FactoryGirl.create(:couple, event_id: event.id)
     side_b = FactoryGirl.create(:couple, event_id: event.id)
     event.update(side_a: side_a.id, side_b: side_b.id)
-    relationship = FactoryGirl.create(:relationship)
+    load "#{Rails.root}/db/seeds.rb"
     visit root_path
     click_link 'Sign In'
     fill_in 'Email', with: "#{user.email}"
@@ -84,5 +84,7 @@ feature 'create a new guest and plusone' do
     expect(page).to have_content("Last name can't be blank")
   end
 
-
 end
+
+
+# rspec spec/features/guests/user_adds_a_guest_and_plusone_spec.rb

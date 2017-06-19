@@ -17,4 +17,5 @@ class Guest < ApplicationRecord
   def count
     1 + plusones.length
   end
+
 end

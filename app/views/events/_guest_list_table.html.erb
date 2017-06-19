@@ -17,7 +17,7 @@
         <td><%= "#{guest.plusones[0].first_name} #{guest.plusones[0].last_name}" if guest.plusones != [] %>
         <td><%= link_to "Edit", edit_event_guest_path(guest) %> /
           <%= link_to "Delete", event_guest_path(guest),
-          method: :delete, data: { confirm: 'Are you sure?'} %>
+          method: :delete, data: { confirm: 'This will delete the guest and any associated plus-ones. Are you sure?'} %>
         </td>
       </tr>
     <% end %>

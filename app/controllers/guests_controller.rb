@@ -28,6 +28,45 @@ class GuestsController < ApplicationController
     end
   end
 
+  def edit
+    @event = Event.find(params[:id])        # params are reversed here...
+    @guest = Guest.find(params[:event_id])  # and here.
+    @plusone = @guest.plusones[0]
+    @relationships = @event.relationships
+  end
+
+  def update
+    @event = Event.find(params[:event_id])
+    @guest = Guest.find(params[:id])
+    check_for_custom_relationship
+    @plusone = @guest.plusones[0]
+    if @guest.valid?
+      if @plusone.first_name == "" && @plusone.last_name == "" # no plusone data entered
+        @guest.update(guest_params)
+        @plusone.destroy
+        redirect_to @event
+      elsif @plusone.valid?
+        @guest.update(guest_params)
+        @plusone.update(plusone_params)
+        redirect_to @event
+      else
+        valid_guest_invalid_plusone
+      end
+    else
+      invalid_guest
+    end
+  end
+
+  def destroy
+    # binding.pry
+    @event = Event.find(params[:id])
+    @guest = Guest.find(params[:event_id]) # params is reversed here
+    @plusones = @guest.plusones
+    @plusones.map { |p1| p1.delete }
+    @guest.delete
+    redirect_to @event
+  end
+
 #----------------------------------
   private
 

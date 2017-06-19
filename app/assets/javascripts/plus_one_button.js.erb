@@ -1,1 +1,38 @@
+var hide = (form) => {
+  $(form).css('visibility','hidden');
+}
 
+var show = (form) => {
+  $(form).css('visibility', 'visible');
+}
+
+//----------
+$(document).ready(function() {
+
+var universal = $(".universal-relationship");
+var custom = $(".custom-relationship");
+var toggle = 0
+hide(custom);
+
+$(".switch-paddle").click(function() {
+  if (toggle == 0) {
+    hide(universal)
+    show(custom)
+    toggle = 1
+  } else {
+    show(universal)
+    hide(custom)
+    toggle = 0
+  }
+});
+
+// return $(".new_guest").on("ajax:success", function(e, data, status, xhr) {
+//   alert("WORKS!");
+//   debugger;
+//
+// }).on("ajax:error", function(e, xhr, status, error) {
+//   alert("Works!");
+//   // return $("#score_" + data.id).append("<p>ERROR</p>");
+// });
+
+});

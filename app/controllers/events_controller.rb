@@ -46,9 +46,25 @@ class EventsController < ApplicationController
   end
 
   def edit
+    @event = Event.find(params[:id])
+    @side_a = Couple.find(@event.side_a)
+    @side_b = Couple.find(@event.side_b)
+    # binding.pry
   end
 
   def destroy
+    @event = Event.find(params[:id])
+    @guests = @event.guests #array
+    @sides = @event.sides # array
+    @tables = @event.tables
+    @tables.map { |t| t.delete }
+    @guests.each do |guest|
+      guest.plusones.map { |p1| p1.delete }
+      guest.delete
+    end
+    @sides.map { |s| s.delete }
+    @event.delete
+    redirect_to events_path
   end
 
   private

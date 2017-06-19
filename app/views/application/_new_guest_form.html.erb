@@ -1,5 +1,5 @@
 <div class="title">Add a Guest</div>
-  <%= form_for([@event, @guest]) do |f| %>
+  <%= form_for [@event, @guest], remote: true do |f| %>
     <div class="row">
       <div class="medium-6 columns">
         <label><%= f.label :first_name %>
@@ -24,11 +24,11 @@
         <span class="form-text">Custom Relationship?</span>
         <input class="switch-input" id="exampleSwitch" type="checkbox" name="exampleSwitch">
         <label class="switch-paddle" for="exampleSwitch">
-          <span class="show-for-sr">Download Kittens</span>
+          <span class="show-for-sr"></span>
         </label>
       </div>
 
-      <div class="medium-5 columns">
+      <div class="medium-5 columns custom-relationship">
         <label><%= f.label :relationship %>
             <%= f.text_field :relationship %>
         </label>
@@ -62,6 +62,6 @@
 
     <br />
     <div class="actions">
-      <%= f.submit %>
+      <%= f.submit "Create Guest", remote: true%>
     </div>
   <% end %>
