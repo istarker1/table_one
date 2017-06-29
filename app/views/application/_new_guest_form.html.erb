@@ -1,67 +1,66 @@
-<div class="title">Add a Guest</div>
-  <%= form_for [@event, @guest], remote: true do |f| %>
-    <div class="row">
-      <div class="medium-6 columns">
-        <label><%= f.label :first_name %>
-            <%= f.text_field :first_name %><br />
-        </label>
-      </div>
-      <div class="medium-6 columns">
-        <label><%= f.label :last_name %>
-            <%= f.text_field :last_name %><br />
-        </label>
-      </div>
+<%= form_for [@event, @guest], remote: true do |f| %>
+  <div class="row">
+    <div class="medium-6 columns">
+      <label><%= f.label :first_name %>
+          <class="guest_text_box"><%= f.text_field :first_name %></class><br />
+      </label>
+    </div>
+    <div class="medium-6 columns">
+      <label><%= f.label :last_name %>
+          <%= f.text_field :last_name %><br />
+      </label>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="medium-5 column universal-relationship">
+      <label><%= f.label :relationship %>
+          <div id="relationship-options"><%= f.select :relationship_id, @relationships %></div>
+      </label>
     </div>
 
-    <div class="row">
-      <div class="medium-5 column universal-relationship">
-        <label><%= f.label :relationship %>
-            <%= f.select :relationship_id, @relationships %>
-        </label>
-      </div>
+    <!-- <div class="small-2 columns lswitch">
+      <span class="form-text">Custom Relationship?</span>
+      <input class="switch-input" id="exampleSwitch" type="checkbox" name="exampleSwitch">
+      <label class="switch-paddle" for="exampleSwitch">
+        <span class="show-for-sr"></span>
+      </label>
+    </div> -->
 
-      <div class="small-2 columns lswitch">
-        <span class="form-text">Custom Relationship?</span>
-        <input class="switch-input" id="exampleSwitch" type="checkbox" name="exampleSwitch">
-        <label class="switch-paddle" for="exampleSwitch">
-          <span class="show-for-sr"></span>
-        </label>
-      </div>
-
-      <div class="medium-5 columns custom-relationship">
-        <label><%= f.label :relationship %>
-            <%= f.text_field :relationship %>
-        </label>
-      </div>
-    </div> <!-- class="row" -->
-
-    <div class="row">
-      <fieldset class="medium-6 columns">
-        <label><%= f.label :side %></label>
-        <% @event.sides.each do |s| %>
-          <%= f.radio_button :side, s.id %>
-          <%= label :side, s.first_name %>
-        <% end %>
-      </fieldset>
+    <div class="medium-5 columns custom-relationship">
+      <label><%= f.label :relationship %>
+          <%= f.text_field :relationship %>
+      </label>
     </div>
+  </div> <!-- class="row" -->
 
-    <div class="row">
-      <div class="long-12 columns">
-        <label><%= f.label :notes %>
-            <%= f.text_area :notes %><br />
-        </label>
-      </div>
-    </div>
+  <div class="row">
+    <fieldset class="medium-6 columns">
+      <label><%= f.label :side %></label>
+      <% @event.sides.each do |s| %>
+        <%= f.radio_button :side, s.id %>
+        <%= label :side, s.first_name %>
+      <% end %>
+    </fieldset>
+  </div>
 
-    <div class="row">
-      <div class="medium-6 columns" id="all_plusones">
-        <label>Add a Plus-One</label>
-        <%= render 'plusone_form' %>
-      </div>
+  <div class="row">
+    <div class="long-12 columns">
+      <label><%= f.label :notes %>
+          <%= f.text_area :notes %><br />
+      </label>
     </div>
+  </div>
 
-    <br />
-    <div class="actions">
-      <%= f.submit "Create Guest", remote: true%>
+  <div class="row">
+    <div class="medium-6 columns" id="all_plusones">
+      <input id="plus_one_checkbox" type="checkbox"><label for="checkbox1">Add a Plus-One?</label>
+      <%= render 'plusone_form' %>
     </div>
-  <% end %>
+  </div>
+
+  <br />
+  <div class="actions">
+    <%= f.submit "Create Guest"%>
+  </div>
+<% end %>

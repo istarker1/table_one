@@ -44,6 +44,10 @@ class Event < ApplicationRecord
     all
   end
 
+  def guest_count
+    all_guests.count
+  end
+
   def side_a_guests
     Guest.where(side: side_a)
   end

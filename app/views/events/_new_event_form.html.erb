@@ -14,7 +14,7 @@
     </label>Who is getting married?</label>
 
     <div class="row"> <!-- Side_a data -->
-      <%= fields_for :side_a, @event.side_a do |f_side_a| %>
+      <%= fields_for :side_a, @side_a do |f_side_a| %>
         <div class="medium-6 columns">
           <label><%= f_side_a.label :first_name %>
               <%= f_side_a.text_field :first_name %><br />
@@ -29,7 +29,7 @@
       <% end %>
 
       <!-- Side_a data -->
-      <%= fields_for :side_b, @event.side_b do |f_side_b| %>
+      <%= fields_for :side_b, @side_b do |f_side_b| %>
         <div class="medium-6 columns">
           <label><%= f_side_b.label :first_name %>
               <%= f_side_b.text_field :first_name %><br />

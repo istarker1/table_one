@@ -1,0 +1,14 @@
+#user_email, #user_password {
+  margin: auto;
+  width: 85%;
+}
+
+.submit_button {
+  background-color: lightgrey; /* very pale yello */
+  /*border-radius: 10px;*/
+  border: none;
+  color: white;
+
+
+
+}

@@ -18,4 +18,8 @@ class Guest < ApplicationRecord
     1 + plusones.length
   end
 
+  def full_name
+    "#{first_name} #{last_name}"
+  end
+
 end

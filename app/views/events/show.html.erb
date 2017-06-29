@@ -5,7 +5,7 @@
 
 <ul class="vertical menu" data-accordion-menu>
   <li>
-    <a href="#">Guests - Count: <%= @event.all_guests.length %> </a>
+    <a href="#">Guests - Count: <span id="guest_count"><%= @event.all_guests.length %></span> </a>
     <ul class="menu vertical nested">
       <%= render 'guest_list_table' %>
     </ul>

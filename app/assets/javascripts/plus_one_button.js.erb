@@ -6,33 +6,63 @@ var show = (form) => {
   $(form).css('visibility', 'visible');
 }
 
+var clear_guest_data = () => {
+  $("#guest_first_name").val("");
+  $("#guest_last_name").val("");
+  $("#guest_relationship").val("");
+  $("#guest_notes").val("");
+  $("#plusone_first_name").val("")
+  $("#plusone_last_name").val("");
+  $("#plusone_notes").val("");
+  // $("#plus_one_checkbox").trigger();
+}
+
+// for updating the guest count
+var update_count = (form, data) => {
+  new_count = data.count
+  $(form).text(new_count)
+}
+
+// for appending guest table
+var edit_link = (event_id, guest_id) => {
+  return `<a href="/events/${guest_id}/guests/${event_id}/edit">Edit</a>`
+}
+var delete_link = (event_id, guest_id) => {
+  return `<a data-confirm="This will delete the guest and any associated plus-ones. Are you sure?" rel="nofollow" data-method="delete" href="/events/${guest_id}/guests/${event_id}">Delete</a>`
+}
+var append_guest_list = (form, data) => {
+  $(form).append(`<tr><td>${data.full_name}</td><td>${data.side}</td><td>${data.relationship}</td><td>${data.plusone}</td><td>${edit_link(data.event_id, data.guest_id)} / ${delete_link(data.event_id, data.guest_id)}</td></tr>`)
+}
+
+// for appending relationship dropdown
+var append_relationship_list = (form, data) => {
+  $(`#${form}`).append(`<option value="${data.relationship_id}">${data.relationship}</option>`)
+  relationship_dropdown = document.getElementById(`${form}`);
+  last_index = relationship_dropdown.length - 1;
+  relationship_dropdown.selectedIndex = last_index;
+}
+
+
 //----------
 $(document).ready(function() {
 
-var universal = $(".universal-relationship");
-var custom = $(".custom-relationship");
-var toggle = 0
-hide(custom);
-
-$(".switch-paddle").click(function() {
-  if (toggle == 0) {
-    hide(universal)
-    show(custom)
-    toggle = 1
-  } else {
-    show(universal)
-    hide(custom)
-    toggle = 0
-  }
+$("#plus_one_checkbox").click(function() {
+  $("#plusone_0").toggle();
 });
 
-// return $(".new_guest").on("ajax:success", function(e, data, status, xhr) {
-//   alert("WORKS!");
-//   debugger;
-//
-// }).on("ajax:error", function(e, xhr, status, error) {
-//   alert("Works!");
-//   // return $("#score_" + data.id).append("<p>ERROR</p>");
-// });
+return $(".new_guest").on("ajax:success", function(e, data, status, xhr) {
+  // debugger;
+  // alert("WORKS!");
+  update_count("#guest_count", data)
+  append_guest_list(".guest-list", data)
+  append_relationship_list("guest_relationship_id", data)
+  clear_guest_data();
+
+
+
+}).on("ajax:error", function(e, xhr, status, error) {
+  alert("Works!");
+  // return $("#score_" + data.id).append("<p>ERROR</p>");
+});
 
 });

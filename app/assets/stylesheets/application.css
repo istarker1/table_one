@@ -16,10 +16,26 @@
 
  */
 
+body {
+  background-color: #FEFED5; /* very pale yello */
+}
+
 .event-list {
   margin-top: 20px;
 }
 
 #all_plusones {
   list-style: none;
+}
+
+#plusone_0 {
+  display: none
+}
+
+.form_background {
+  background-color: lightblue; /* #FEFED5; - very pale yello */
+  margin: auto;
+  width: 50%;
+  padding: 30px;
+  border-radius: 40px;
 }
