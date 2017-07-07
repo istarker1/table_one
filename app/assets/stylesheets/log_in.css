@@ -4,10 +4,8 @@
 }
 
 .submit_button {
-  background-color: lightgrey; /* very pale yello */
-  /*border-radius: 10px;*/
+  background-color: lightgrey;
   border: none;
-  /*color: white;*/
 }
 
 #log_in_title {
@@ -15,5 +13,4 @@
   text-align: center;
   font-family: Snell Roundhand, cursive;
   font-weight: bold;
-  /*margin-bottom: 10px;*/
 }

@@ -6,14 +6,13 @@
 }
 
 #logo {
-  background-color: #800020; /* burgundy */
+  background-color: #800020;
   padding-left: 22px;
   padding-right: 22px;
   text-align: center;
   font-size: 40px;
   color: white;
   font-style: italic;
-  /*font-family: cursive;*/
 }
 
 
