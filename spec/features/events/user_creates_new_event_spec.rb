@@ -18,7 +18,7 @@ feature 'create a new event' do
     click_button 'Create Event'
 
     expect(page).to have_content("Super fun event")
-    expect(page).to have_content("Add a guest")
+    expect(page).to have_content("Create Seating Arrangement")
   end
 
   scenario 'user missed field in event' do

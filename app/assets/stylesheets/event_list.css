@@ -1,0 +1,17 @@
+#event_background {
+  width: 80%;
+}
+
+#event_info {
+  text-align: center;
+  font-family: Snell Roundhand, cursive;
+  font-size: 35px;
+}
+
+#dropdown {
+  color: black;
+}
+
+#edit_form {
+  width: 80%
+}

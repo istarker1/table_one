@@ -17,7 +17,11 @@
  */
 
 body {
-  background-color: #FEFED5; /* very pale yello */
+  background-image: url("https://s3.us-east-2.amazonaws.com/tableone/6150.jpg"); /* flowers picture */
+  background-size: 100%;
+  /*background-position: center;*/
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 .event-list {
@@ -35,7 +39,9 @@ body {
 .form_background {
   background-color: lightblue; /* #FEFED5; - very pale yello */
   margin: auto;
-  width: 50%;
+  margin-top: 50px;
+  width: 500px;
   padding: 30px;
   border-radius: 40px;
+  background: rgba(173, 216, 230, 0.8);
 }

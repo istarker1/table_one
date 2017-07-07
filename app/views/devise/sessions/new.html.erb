@@ -1,11 +1,12 @@
-<h2>Log in</h2>
+
 <div class="form_background">
+  <div id="log_in_title">Log in</div>
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <div class="field">
-      <div id="email_label"><%= f.label :email %></div>
+      <%= f.label :email %>
       <%= f.email_field :email, autofocus: true, placeholder: "Email"%>
     </div>
-<br />
+      <br />
     <div class="field">
       <%= f.label :password %>
       <%= f.password_field :password, autocomplete: "off" %>

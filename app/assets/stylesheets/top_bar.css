@@ -1,0 +1,33 @@
+.menu-text {
+  background-color: #191970;
+  color: white;
+  padding: 0px, 17px;
+  margin: 0px, 17px;
+}
+
+#logo {
+  background-color: #800020; /* burgundy */
+  padding-left: 22px;
+  padding-right: 22px;
+  text-align: center;
+  font-size: 40px;
+  color: white;
+  font-style: italic;
+  /*font-family: cursive;*/
+}
+
+
+#title {
+  font-family: Snell Roundhand, cursive;
+  font-size: 30px;
+  padding-top: 17px;
+  padding-bottom: 17px;
+}
+
+.top-bar {
+  background-color: #191970;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  margin: 0px;
+}

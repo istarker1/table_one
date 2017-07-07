@@ -169,6 +169,7 @@ class Event < ApplicationRecord
       create_tables(count, tables)
       sort_tables(tables, group)
     end
+    # combine_tables
   end
 
 #============
@@ -188,7 +189,7 @@ class Event < ApplicationRecord
   end
 
   def delete_empty_tables
-    event_tables.each do |t|
+    event_tables.reverse_each do |t|
       t.delete if t.empty?
     end
   end

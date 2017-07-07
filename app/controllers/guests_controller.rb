@@ -32,6 +32,10 @@ class GuestsController < ApplicationController
     @event = Event.find(params[:id])        # params are reversed here...
     @guest = Guest.find(params[:event_id])  # and here.
     @plusone = @guest.plusones[0]
+    binding.pry
+    if @guest.plusones == []             # creating blank plusone data if there is none
+      @plusone = Plusone.new
+    end
     @relationships = @event.relationships
   end
 

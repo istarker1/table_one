@@ -1,19 +1,21 @@
 <div class="top-bar">
+
   <div class="top-bar-left">
     <ul class="menu horizontal" data-dropdown-menu>
-      <li class="menu-text", id="title"><%= link_to "Table One", events_path %></li>
+      <li id="logo">1</li>
+      <li><%= link_to "Table One", events_path, class: "menu-text", id: "title"%></li>
     </ul>
   </div>
   <div class="top-bar-right">
     <ul class="menu horizontal">
       <% if current_user %>
         <li class="menu-text"><%= "Hello #{current_user.first_name}!" %></li>
-        <li class="menu-text"><%= link_to "Edit Account", edit_user_registration_path %></li>
-        <li class="menu-text"><%= link_to "Sign Out", destroy_user_session_path, method: :delete,
-          data: { confirm: "Are you sure?" }%></li>
+        <li><%= link_to "Edit Account", edit_user_registration_path, class: "menu-text" %></li>
+        <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete,
+          data: { confirm: "Are you sure?" }, class: "menu-text"%></li>
       <% else %>
-        <li class="menu-text"><%= link_to "Sign In", new_user_session_path %></li>
-        <li class="menu-text"><%= link_to "Sign Up", new_user_registration_path %></li>
+        <li><%= link_to "Sign In", new_user_session_path, class: "menu-text" %></li>
+        <li><%= link_to "Sign Up", new_user_registration_path, class: "menu-text" %></li>
       <% end %>
     </ul>
   </div>

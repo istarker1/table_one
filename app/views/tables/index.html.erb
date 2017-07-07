@@ -1,11 +1,15 @@
-<% @event.tables.each do |table| %>
-  <ul>Table <%="#{@table_num} Seated: #{table.count}"%>
-    <% table.all.each do |guest| %>
-      <li><%="#{guest.first_name} #{guest.last_name}"%></li>
-      <% @guest_count += 1 %>
-    <%end%>
-  </ul>
-  <% @table_num += 1 %>
-<% end %>
+<div id="seating_arrangement_background">
+  <% @event.tables.each do |table| %>
+    <div class="form_background table_background">
+      <ul>Table <%="#{@table_num} Seated: #{table.count}"%>
+        <% table.all.each do |guest| %>
+          <li><%="#{guest.first_name} #{guest.last_name}"%></li>
+          <% @guest_count += 1 %>
+        <%end%>
+      </ul>
+    </div>
+    <% @table_num += 1 %>
+  <% end %>
 
-Total Guests: <%= "#{@guest_count}" %>
+  Total Guests: <%= "#{@guest_count}" %>
+</div>

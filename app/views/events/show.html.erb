@@ -1,19 +1,21 @@
-<%= flash[:notice] %>
+<div class=form_background id="event_background">
+  <%= flash[:notice] %>
 
-<div class="title"><%= "#{@event.name} - Table Size: #{@event.table_size_limit}" %></div>
-<br />
+  <div id="event_info"><%= "#{@event.name} - Table Size: #{@event.table_size_limit}" %></div>
+  <br />
 
-<ul class="vertical menu" data-accordion-menu>
-  <li>
-    <a href="#">Guests - Count: <span id="guest_count"><%= @event.all_guests.length %></span> </a>
-    <ul class="menu vertical nested">
-      <%= render 'guest_list_table' %>
-    </ul>
-  </li>
-</ul>
+  <ul class="vertical menu" data-accordion-menu>
+    <li>
+      <a href="#" id="dropdown">Guests - Count: <span id="guest_count"><%= @event.all_guests.length %></span> </a>
+      <ul class="menu vertical nested">
+        <%= render 'guest_list_table' %>
+      </ul>
+    </li>
+  </ul>
 
-<br />
-<%= render 'new_guest_form' %>
-<%= link_to "Add a guest", new_event_guest_path(@event) %>
-<br>
-<%= link_to "Create Seating Arrangement", event_tables_path(@event) %>
+  <br />
+  <%= render 'new_guest_form' %>
+
+  <br>
+  <%= link_to "Create Seating Arrangement", event_tables_path(@event) %>
+</div>

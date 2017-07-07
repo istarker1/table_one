@@ -1,6 +1,8 @@
-<%= render 'if_errors_block' %>
+<div class="form_background" id="edit_form">
+  <%= render 'if_errors_block' %>
 
-<div class="title">Edit guest</div>
-<%= render 'new_guest_form' %>
+  <div class="title">Edit guest</div>
+  <%= render 'new_guest_form' %>
 
-<%= link_to "Back to #{@event.name}", event_path(@event) %>
+  <%= link_to "Back to #{@event.name}", event_path(@event) %>
+</div>
