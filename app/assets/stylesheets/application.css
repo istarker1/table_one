@@ -17,9 +17,8 @@
  */
 
 body {
-  background-image: url("https://s3.us-east-2.amazonaws.com/tableone/6150.jpg"); /* flowers picture */
+  background-image: url("https://s3.us-east-2.amazonaws.com/tableone/6150.jpg");
   background-size: 100%;
-  /*background-position: center;*/
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
@@ -37,7 +36,7 @@ body {
 }
 
 .form_background {
-  background-color: lightblue; /* #FEFED5; - very pale yello */
+  background-color: lightblue;
   margin: auto;
   margin-top: 50px;
   width: 500px;
