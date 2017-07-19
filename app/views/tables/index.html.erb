@@ -11,5 +11,10 @@
     <% @table_num += 1 %>
   <% end %>
 
-  Total Guests: <%= "#{@guest_count}" %>
+  <div class="form_background table_background">
+    Total Guests: <%= "#{@guest_count}" %>
+    <br>
+    <%= link_to "Back to #{@event.name}", event_path(@event) %>
+  </div>
+
 </div>
