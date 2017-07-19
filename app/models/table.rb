@@ -16,5 +16,9 @@ class Table < ApplicationRecord
   def count
     all.length
   end
-  
+
+  def small?
+    count <= table_size_limit / 2
+  end
+
 end

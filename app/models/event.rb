@@ -76,6 +76,7 @@ class Event < ApplicationRecord
     all_tables, all_relationships = tables, relationships  # self.tables / self.relationships
     sort_immediate_family(a)
     sort_immediate_family(b)
+    combine_tables
     sort_siblings_and_cousins(a)
     sort_siblings_and_cousins(b)
     combine_tables
@@ -84,6 +85,8 @@ class Event < ApplicationRecord
     combine_tables
     sort_non_universal_relationships(a)
     sort_non_universal_relationships(b)
+    delete_empty_tables
+    combine_small_tables
     delete_empty_tables
   end
 
@@ -191,6 +194,26 @@ class Event < ApplicationRecord
   def delete_empty_tables
     event_tables.reverse_each do |t|
       t.delete if t.empty?
+    end
+  end
+
+  def combine_small_tables
+    done = false # for combining loop
+    small_tables = []
+    tables.each { |t| small_tables << t if t.small? == true  }
+    done = true if small_tables.empty?
+    done = true if small_tables.count == 1
+    while done == false
+      from = small_tables.pop
+      to = small_tables.pop
+      from.guests.each do |guest|
+        guest.update(table_id: to.id)
+        guest.plusones.each do |p1|
+          p1.update(table_id: to.id)
+        end
+      end
+    done = true if small_tables.empty?
+    done = true if small_tables.count == 1
     end
   end
 
