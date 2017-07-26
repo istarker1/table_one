@@ -44,3 +44,8 @@ body {
   border-radius: 40px;
   background: rgba(173, 216, 230, 0.8);
 }
+
+.button {
+  background-color: #BC4676;
+  background: rgba(188, 70, 118, 0.8);
+}

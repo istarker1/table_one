@@ -32,37 +32,47 @@ class GuestsController < ApplicationController
     @event = Event.find(params[:id])        # params are reversed here...
     @guest = Guest.find(params[:event_id])  # and here.
     @plusone = @guest.plusones[0]
-    binding.pry
     if @guest.plusones == []             # creating blank plusone data if there is none
       @plusone = Plusone.new
     end
     @relationships = @event.relationships
   end
 
+
+
+  # if plusone does not already exist, create via plusone_params
+
   def update
     @event = Event.find(params[:event_id])
     @guest = Guest.find(params[:id])
     check_for_custom_relationship
     @plusone = @guest.plusones[0]
-    if @guest.valid?
-      if @plusone.first_name == "" && @plusone.last_name == "" # no plusone data entered
-        @guest.update(guest_params)
-        @plusone.destroy
-        redirect_to @event
-      elsif @plusone.valid?
-        @guest.update(guest_params)
+    if @guest.update(guest_params) # if plusone already exists, update via plusone_params
+      if !@plusone.nil?      # plusone already exists
         @plusone.update(plusone_params)
-        redirect_to @event
-      else
-        valid_guest_invalid_plusone
+        @plusone.update(guest_id: @guest.id)
+        return redirect_to @event
+      else           # plusone does not already exist
+        @plusone = Plusone.new(plusone_params)
+        @plusone.guest_id = @guest.id
+        if @plusone.first_name == "" && @plusone.last_name == ""
+          @guest.update(guest_params)
+          return redirect_to @event
+        elsif @plusone.valid?
+          @guest.update(guest_params)
+          @plusone.save
+          return redirect_to @event
+        else
+          valid_guest_invalid_plusone
+        end
       end
     else
+      binding.pry
       invalid_guest
     end
   end
 
   def destroy
-    # binding.pry
     @event = Event.find(params[:id])
     @guest = Guest.find(params[:event_id]) # params is reversed here
     @plusones = @guest.plusones
@@ -86,7 +96,7 @@ class GuestsController < ApplicationController
   def check_for_custom_relationship
     if @guest.guest_relationship.name == "Choose one or create your own"
       @guest.relationship_id = create_custom_relationship(
-        params[:guest][:relationship] ,params[:event_id])
+        params[:guest][:relationship], params[:event_id])
     end
   end
 

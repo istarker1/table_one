@@ -1,5 +1,6 @@
 
 <div class="form_background">
+  <%= flash[:notice] %>
   <div id="log_in_title">Log in</div>
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <div class="field">
@@ -20,7 +21,7 @@
     <% end -%>
 
     <div class="actions">
-      <%= f.submit "Log in", class: "submit_button" %>
+      <%= f.submit "Log in", class: "button" %>
     </div>
   <% end %>
 

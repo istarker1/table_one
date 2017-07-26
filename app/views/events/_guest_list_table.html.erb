@@ -11,7 +11,7 @@
   <tbody>
     <% @guests.each do |guest| %>
       <tr>
-        <td><%= "#{guest.first_name} #{guest.last_name}" %></td>
+        <td><%= "#{guest.first_name} #{guest.last_name}"%></td>
         <td><%= "#{guest.guest_side.first_name}" %></td>
         <td><%= "#{guest.guest_relationship.name}" %></td>
         <td><%= "#{guest.plusones[0].first_name} #{guest.plusones[0].last_name}" if guest.plusones != [] %>

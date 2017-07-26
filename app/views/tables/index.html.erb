@@ -14,7 +14,7 @@
   <div class="form_background table_background">
     Total Guests: <%= "#{@guest_count}" %>
     <br>
-    <%= link_to "Back to #{@event.name}", event_path(@event) %>
+    <%= link_to "Back to #{@event.name}", event_path(@event), :class => "button" %>
   </div>
 
 </div>

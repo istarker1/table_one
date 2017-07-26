@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
 
   def index
-    if current_user.nil?
+    if !user_logged_in?
       redirect_to new_user_session_path
     else
       @events = current_user.events
@@ -10,6 +10,7 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
+    check_for_user_event_host        # to root_path if user is not tied to event
     @guests = @event.guests
     @relationships = @event.relationships
     #------ for guest form
@@ -25,9 +26,10 @@ class EventsController < ApplicationController
   end
 
   def create
+    user_logged_in?
     @errors = nil
-    @side_a, @side_b = Couple.new(side_a_params), Couple.new(side_b_params)
     @event = Event.new(event_params)
+    @side_a, @side_b = Couple.new(side_a_params), Couple.new(side_b_params)
     if @event.save
       @side_a.event = @event
       @side_b.event = @event
@@ -46,14 +48,28 @@ class EventsController < ApplicationController
   end
 
   def edit
+    user_logged_in?
     @event = Event.find(params[:id])
+    check_for_user_event_host
     @side_a = Couple.find(@event.side_a)
     @side_b = Couple.find(@event.side_b)
-    # binding.pry
+  end
+
+  def update
+    user_logged_in?
+    @event = Event.find(params[:id])
+    check_for_user_event_host
+    @side_a, @side_b = Couple.find(@event.side_a), Couple.find(@event.side_b)
+    @event.update(event_params)
+    @side_a.update(side_a_params)
+    @side_b.update(side_b_params)
+    redirect_to @event
   end
 
   def destroy
+    user_logged_in?
     @event = Event.find(params[:id])
+    check_for_user_event_host
     @guests = @event.guests #array
     @sides = @event.sides # array
     @tables = @event.tables

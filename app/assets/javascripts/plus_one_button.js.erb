@@ -31,7 +31,13 @@ var delete_link = (event_id, guest_id) => {
   return `<a data-confirm="This will delete the guest and any associated plus-ones. Are you sure?" rel="nofollow" data-method="delete" href="/events/${guest_id}/guests/${event_id}">Delete</a>`
 }
 var append_guest_list = (form, data) => {
-  $(form).append(`<tr><td>${data.full_name}</td><td>${data.side}</td><td>${data.relationship}</td><td>${data.plusone}</td><td>${edit_link(data.event_id, data.guest_id)} / ${delete_link(data.event_id, data.guest_id)}</td></tr>`)
+  debugger;
+  if (data.plusone === undefined) {
+    p1 = ""
+  } else {
+    p1 = data.plusone
+  }
+  $(form).append(`<tr><td>${data.full_name}</td><td>${data.side}</td><td>${data.relationship}</td><td>${p1}</td><td>${edit_link(data.event_id, data.guest_id)} / ${delete_link(data.event_id, data.guest_id)}</td></tr>`)
 }
 
 // for appending relationship dropdown
