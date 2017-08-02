@@ -1,9 +1,12 @@
 class EventsController < ApplicationController
 
+  # before_action
+
   def index
     if !user_logged_in?
       redirect_to new_user_session_path
     else
+      @title = "Table 1 - Events"
       @events = current_user.events
     end
   end
@@ -17,12 +20,14 @@ class EventsController < ApplicationController
     @guest = Guest.new
     @relationship = Relationship.new
     @plusone = Plusone.new
+    @title = "#{@event.name}"
   end
 
   def new
     @event = Event.new
     @side_a = Couple.new
     @side_b = Couple.new
+    @title = "New Event"
   end
 
   def create
@@ -53,6 +58,7 @@ class EventsController < ApplicationController
     check_for_user_event_host
     @side_a = Couple.find(@event.side_a)
     @side_b = Couple.find(@event.side_b)
+    @title = "Edit #{@event.name}"
   end
 
   def update

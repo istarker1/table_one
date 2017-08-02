@@ -8,7 +8,7 @@
   border: none;
 }
 
-#log_in_title {
+.log_in_title {
   font-size: 35px;
   text-align: center;
   font-family: Snell Roundhand, cursive;

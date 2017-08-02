@@ -36,6 +36,7 @@ class GuestsController < ApplicationController
       @plusone = Plusone.new
     end
     @relationships = @event.relationships
+    @title = "Edit #{@guest.first_name} #{@guest.last_name}"
   end
 
 
@@ -67,7 +68,6 @@ class GuestsController < ApplicationController
         end
       end
     else
-      binding.pry
       invalid_guest
     end
   end
