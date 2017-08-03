@@ -2,6 +2,8 @@
 
 <div class=form_background id="event_background">
   <%= flash[:notice] %>
+  <%= render "if_errors_block" %>
+
 
   <div id="event_info"><%= "#{@event.name} - Table Size: #{@event.table_size_limit}" %></div>
   <br />
@@ -18,5 +20,5 @@
   <br />
   <%= render 'new_guest_form' %>
 
-  <%= link_to "Create Seating Arrangement", event_tables_path(@event), :class => "button" %>
+  <div class="actions"><%= link_to "Create Seating Arrangement", event_tables_path(@event), :class => "button" %></div>
 </div>

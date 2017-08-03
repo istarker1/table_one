@@ -31,21 +31,24 @@ var delete_link = (event_id, guest_id) => {
   return `<a data-confirm="This will delete the guest and any associated plus-ones. Are you sure?" rel="nofollow" data-method="delete" href="/events/${guest_id}/guests/${event_id}">Delete</a>`
 }
 var append_guest_list = (form, data) => {
-  debugger;
   if (data.plusone === undefined) {
     p1 = ""
   } else {
     p1 = data.plusone
   }
-  $(form).append(`<tr><td>${data.full_name}</td><td>${data.side}</td><td>${data.relationship}</td><td>${p1}</td><td>${edit_link(data.event_id, data.guest_id)} / ${delete_link(data.event_id, data.guest_id)}</td></tr>`)
+  if (data.full_name !== undefined) {
+    $(form).append(`<tr><td>${data.full_name}</td><td>${data.side}</td><td>${data.relationship}</td><td>${p1}</td><td>${edit_link(data.event_id, data.guest_id)} / ${delete_link(data.event_id, data.guest_id)}</td></tr>`)
+  }
 }
 
 // for appending relationship dropdown
 var append_relationship_list = (form, data) => {
-  $(`#${form}`).append(`<option value="${data.relationship_id}">${data.relationship}</option>`)
-  relationship_dropdown = document.getElementById(`${form}`);
-  last_index = relationship_dropdown.length - 1;
-  relationship_dropdown.selectedIndex = last_index;
+  if (data.relationship !== undefined) {
+    $(`#${form}`).append(`<option value="${data.relationship_id}">${data.relationship}</option>`)
+    relationship_dropdown = document.getElementById(`${form}`);
+    last_index = relationship_dropdown.length - 1;
+    relationship_dropdown.selectedIndex = last_index;
+  }
 }
 
 

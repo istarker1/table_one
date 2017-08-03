@@ -52,6 +52,8 @@ body {
 
 label {
   text-align: center;
+  font-family: cursive;
+  font-size: 15px;
 }
 
 #remember_me {
@@ -60,4 +62,8 @@ label {
 
 input::-webkit-input-placeholder {
 color: Gray;
+}
+
+.actions {
+  margin: 0px 15px;
 }

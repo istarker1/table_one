@@ -14,3 +14,16 @@
   font-family: Snell Roundhand, cursive;
   font-weight: bold;
 }
+
+#remember_me {
+  margin: 0px 33px;
+  float: left;
+}
+
+/*#user_remember_me {
+  float: left;
+}*/
+
+#log_in_button {
+  margin-left: 33px;
+}

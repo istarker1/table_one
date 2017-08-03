@@ -8,15 +8,16 @@ class ApplicationController < ActionController::Base
     if current_user
       true
     else
-      flash[:notice] = "You are not authorized to view this page"
       false
     end
   end
 
   helper_method :correct_user
   def check_for_user_event_host
-    flash[:notice] = "You are not authorized to view this page"
-    redirect_to root_path if !@event.users.include?(current_user)
+    if !@event.users.include?(current_user)
+      flash[:notice] = "You are not authorized to view this page" if !current_user.nil?
+      redirect_to root_path
+    end
   end
 
   protected

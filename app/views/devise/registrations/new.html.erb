@@ -6,35 +6,35 @@
     <%= devise_error_messages! %>
 
     <div class="field">
-      <!-- <%= f.label :first_name %> -->
+      <%= f.label :first_name %>
       <%= f.text_field :first_name, required: true, autofocus: true, placeholder: "First name" %>
     </div>
 
     <div class="field">
-      <!-- <%= f.label :last_name %> -->
+      <%= f.label :last_name %>
       <%= f.text_field :last_name, required: true, autofocus: true, placeholder: "Last name" %>
     </div>
 
     <div class="field">
-      <!-- <%= f.label :email %> -->
+      <%= f.label :email %>
       <%= f.email_field :email, required: true, autofocus: true, placeholder: "Email" %>
     </div>
-
+    <br />
     <div class="field">
-      <!-- <%= f.label :password %> -->
+      <%= f.label :password "(#{@minimum_password_length} characters minimum)" %>
       <% if @minimum_password_length %>
       <em></em>
-      <% end %><br />
+      <% end %>
       <%= f.password_field :password, required: true, autocomplete: "off", placeholder: "Password (#{@minimum_password_length} characters minimum)" %>
     </div><br />
 
     <div class="field">
-      <!-- <%= f.label :password_confirmation, required: true %><br /> -->
+      <%= f.label :password_confirmation, required: true %>
       <%= f.password_field :password_confirmation, required: true, autocomplete: "off", placeholder: "Confirm password" %>
     </div>
 
     <div class="actions">
-      <%= f.submit "Sign up" %>
+      <%= f.submit "Sign up", class: "button" %>
     </div>
   <% end %>
 

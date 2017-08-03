@@ -1,9 +1,5 @@
 <%= render "title" %>
 
-<div class="form_background" id="edit_form">
-  <%= flash[:notice] %>
+<%= render 'if_errors_block' %>
 
-  <%= render 'if_errors_block' %>
-
-  <%= render 'new_event_form' %>
-</div>
+<%= render 'new_event_form' %>

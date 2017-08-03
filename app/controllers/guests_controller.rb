@@ -108,7 +108,7 @@ class GuestsController < ApplicationController
   def valid_guest_no_plusone
     @guest.save
     flash[:notice] = "Guest added!"
-    data = {full_name: @guest.full_name, side: @guest.side,
+    data = {full_name: @guest.full_name, side: @guest.side.first_name,
       guest_id: @guest.id, event_id: @event.id, count: @event.guest_count,
       relationship: @guest.relationship.name,
       relationship_id: @guest.relationship.id, type: "new"}

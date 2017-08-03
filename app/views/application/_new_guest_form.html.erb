@@ -63,7 +63,11 @@
 
       <br />
       <div class="actions">
-        <%= f.submit "Create Guest", class: "button"%>
+        <% if @guest.first_name.nil? %>
+          <%= f.submit "Create Guest", class: "button"%>
+        <% else %>
+          <%= f.submit "Edit Guest", class: "button"%>
+        <% end %>
       </div>
     <% end %>
   </div>

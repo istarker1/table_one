@@ -1,50 +1,54 @@
-<div class="row"><label>Add an event</label>
-  <%= form_for(@event) do |f_event| %> <!-- Event data -->
-      <div class="medium-6 columns">
-        <label><%= f_event.label :name %>
-            <%= f_event.text_field :name %><br />
-        </label>
-      </div>
-      <div class="medium-6 columns">
-        <label><%= f_event.label :table_size_limit %>
-            <%= f_event.number_field :table_size_limit %><br />
-        </label>
-      </div>
-
-    </label>Who is getting married?</label>
-
-    <div class="row"> <!-- Side_a data -->
-      <%= fields_for :side_a, @side_a do |f_side_a| %>
+<div class="form_background" id="edit_form">
+  <%= flash[:notice] %>
+  <div class="row"><label><%= @event.name == nil ?
+  "Add an Event" : "Edit #{@event.name}"%></label>
+    <%= form_for(@event) do |f_event| %> <!-- Event data -->
         <div class="medium-6 columns">
-          <label><%= f_side_a.label :first_name %>
-              <%= f_side_a.text_field :first_name %><br />
-          </label>
-          <label><%= f_side_a.label :last_name %>
-              <%= f_side_a.text_field :last_name %><br />
-          </label>
-          <label><%= f_side_a.label :notes %>
-              <%= f_side_a.text_area :notes %><br />
+          <label><%= f_event.label :name %>
+              <%= f_event.text_field :name %><br />
           </label>
         </div>
-      <% end %>
-
-      <!-- Side_a data -->
-      <%= fields_for :side_b, @side_b do |f_side_b| %>
         <div class="medium-6 columns">
-          <label><%= f_side_b.label :first_name %>
-              <%= f_side_b.text_field :first_name %><br />
-          </label>
-          <label><%= f_side_b.label :last_name %>
-              <%= f_side_b.text_field :last_name %><br />
-          </label>
-          <label><%= f_side_b.label :notes %>
-              <%= f_side_b.text_area :notes %><br />
+          <label><%= f_event.label :table_size_limit %>
+              <%= f_event.number_field :table_size_limit %><br />
           </label>
         </div>
-      <% end %>
-    </div>
-    <div class="actions">
-      <%= f_event.submit %>
-    </div>
-  <% end %>
+
+      </label>Who is getting married?</label>
+
+      <div class="row"> <!-- Side_a data -->
+        <%= fields_for :side_a, @side_a do |f_side_a| %>
+          <div class="medium-6 columns">
+            <label><%= f_side_a.label :first_name %>
+                <%= f_side_a.text_field :first_name %><br />
+            </label>
+            <label><%= f_side_a.label :last_name %>
+                <%= f_side_a.text_field :last_name %><br />
+            </label>
+            <label><%= f_side_a.label :notes %>
+                <%= f_side_a.text_area :notes %><br />
+            </label>
+          </div>
+        <% end %>
+
+        <!-- Side_a data -->
+        <%= fields_for :side_b, @side_b do |f_side_b| %>
+          <div class="medium-6 columns">
+            <label><%= f_side_b.label :first_name %>
+                <%= f_side_b.text_field :first_name %><br />
+            </label>
+            <label><%= f_side_b.label :last_name %>
+                <%= f_side_b.text_field :last_name %><br />
+            </label>
+            <label><%= f_side_b.label :notes %>
+                <%= f_side_b.text_area :notes %><br />
+            </label>
+          </div>
+        <% end %>
+      </div>
+      <div class="actions">
+        <%= f_event.submit %>
+      </div>
+    <% end %>
+  </div>
 </div>

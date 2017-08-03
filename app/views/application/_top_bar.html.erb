@@ -10,7 +10,7 @@
     <ul class="menu horizontal">
       <% if current_user %>
         <li class="menu-text"><%= "Hello #{current_user.first_name}!" %></li>
-        <li><%= link_to "Edit Account", edit_user_registration_path, class: "menu-text" %></li>
+        <li><%= link_to "Edit Profile", edit_user_registration_path, class: "menu-text" %></li>
         <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete,
           data: { confirm: "Are you sure?" }, class: "menu-text"%></li>
       <% else %>
