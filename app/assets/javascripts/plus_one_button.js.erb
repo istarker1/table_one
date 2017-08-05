@@ -60,8 +60,7 @@ $("#plus_one_checkbox").click(function() {
 });
 
 return $(".new_guest").on("ajax:success", function(e, data, status, xhr) {
-  // debugger;
-  // alert("WORKS!");
+  alert("Works");
   update_count("#guest_count", data)
   append_guest_list(".guest-list", data)
   append_relationship_list("guest_relationship_id", data)

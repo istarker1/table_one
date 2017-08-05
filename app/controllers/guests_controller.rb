@@ -44,25 +44,19 @@ class GuestsController < ApplicationController
   # if plusone does not already exist, create via plusone_params
 
   def update
-    @event = Event.find(params[:event_id])
-    @guest = Guest.find(params[:id])
-    check_for_custom_relationship
+    @event, @guest = Event.find(params[:event_id]), Guest.find(params[:id])
     @plusone = @guest.plusones[0]
-    if @guest.update(guest_params) # if plusone already exists, update via plusone_params
-      if !@plusone.nil?      # plusone already exists
-        @plusone.update(plusone_params)
-        @plusone.update(guest_id: @guest.id)
-        return redirect_to @event
-      else           # plusone does not already exist
+    check_for_custom_relationship
+    if @guest.update(guest_params)
+      if !@plusone.nil?
+        remove_or_update_plusone
+      elsif @plusone.nil? && plusone_params[:first_name] == "" && plusone_params[:last_name]== ""
+        redirect_to @event
+      else
         @plusone = Plusone.new(plusone_params)
         @plusone.guest_id = @guest.id
-        if @plusone.first_name == "" && @plusone.last_name == ""
-          @guest.update(guest_params)
-          return redirect_to @event
-        elsif @plusone.valid?
-          @guest.update(guest_params)
-          @plusone.save
-          return redirect_to @event
+        if @plusone.save
+          redirect_to @event
         else
           valid_guest_invalid_plusone
         end
@@ -70,6 +64,7 @@ class GuestsController < ApplicationController
     else
       invalid_guest
     end
+    redirect_to @event
   end
 
   def destroy
@@ -108,10 +103,10 @@ class GuestsController < ApplicationController
   def valid_guest_no_plusone
     @guest.save
     flash[:notice] = "Guest added!"
-    data = {full_name: @guest.full_name, side: @guest.side.first_name,
-      guest_id: @guest.id, event_id: @event.id, count: @event.guest_count,
-      relationship: @guest.relationship.name,
-      relationship_id: @guest.relationship.id, type: "new"}
+    data = {full_name: @guest.full_name, guest_id: @guest.id, event_id: @event.id,
+      side: @guest.guest_side.first_name, relationship: @guest.relationship.name,
+      count: @event.guest_count, relationship_id: @guest.relationship.id,
+      type: "new"}
     @event.relationships.any? == [@guest.relationship.name, @guest.relationship.id] ?
       data[:relationship] = nil : data[:relationship] = @guest.relationship.name
     render json: data, status: :created #, location: guests_path(@guest) #???
@@ -142,6 +137,22 @@ class GuestsController < ApplicationController
     @relationships = @event.relationships
     @plusone = Plusone.new
     render action: 'new'
+  end
+
+  def update_plusone
+    @plusone.update(plusone_params)
+    @plusone.update(guest_id: @guest.id)
+    redirect_to @event
+  end
+
+  def remove_or_update_plusone
+    if plusone_params[:first_name] == "" && plusone_params[:last_name] == ""
+      @plusone.destroy
+    elsif plusone_params[:first_name] == "" || plusone_params[:last_name] == ""
+      valid_guest_invalid_plusone
+    else
+      @plusone.update(plusone_params)
+    end
   end
 
 end
