@@ -1,6 +1,7 @@
 class GuestsController < ApplicationController
 
   def new
+    @create = true
     @event = Event.find(params[:event_id])
     @guests = @event.guests
     @guest = Guest.new
@@ -10,6 +11,7 @@ class GuestsController < ApplicationController
   end
 
   def create
+
     @event = Event.find(params[:event_id])
     @guest = Guest.new(guest_params)
     @guest.event_id = params[:event_id]
@@ -29,6 +31,7 @@ class GuestsController < ApplicationController
   end
 
   def edit
+    @create = false
     @event = Event.find(params[:id])        # params are reversed here...
     @guest = Guest.find(params[:event_id])  # and here.
     @plusone = @guest.plusones[0]
