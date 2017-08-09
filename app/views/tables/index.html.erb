@@ -3,7 +3,8 @@
 <div id="seating_arrangement_background">
   <% @event.tables.each do |table| %>
     <div class="form_background table_background">
-      <ul>Table <%="#{@table_num} Seated: #{table.count}"%>
+      <ul class="table">
+        <div class="table_name">Table <%="#{@table_num} - Seated: #{table.count}"%></div>
         <% table.all.each do |guest| %>
           <li><%="#{guest.first_name} #{guest.last_name}"%></li>
           <% @guest_count += 1 %>
@@ -15,7 +16,7 @@
 
   <div class="form_background table_background">
     Total Guests: <%= "#{@guest_count}" %>
-    <br>
+    <br /><br />
     <%= link_to "Back to #{@event.name}", event_path(@event), :class => "button" %>
   </div>
 
