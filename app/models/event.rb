@@ -180,7 +180,7 @@ class Event < ApplicationRecord
   def combine_tables
     from = Table.where(event_id: id)[-1]
     to = Table.where(event_id: id)[-2]
-    if from.count + to.count <= table_size_limit
+    if from.count != 0 && to.count!= 0 && from.count + to.count <= table_size_limit
       from.guests.each do |guest|
         guest.update(table_id: to.id)
         guest.plusones.each do |p1|

@@ -60,7 +60,7 @@ $("#plus_one_checkbox").click(function() {
 });
 
 return $(".new_guest").on("ajax:success", function(e, data, status, xhr) {
-  alert("Works");
+  // alert("Works");
   update_count("#guest_count", data)
   append_guest_list(".guest-list", data)
   append_relationship_list("guest_relationship_id", data)
@@ -69,7 +69,7 @@ return $(".new_guest").on("ajax:success", function(e, data, status, xhr) {
 
 
 }).on("ajax:error", function(e, xhr, status, error) {
-  alert("Works!");
+  // alert("Works!");
   // return $("#score_" + data.id).append("<p>ERROR</p>");
 });
 
