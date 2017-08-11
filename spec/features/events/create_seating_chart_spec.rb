@@ -98,7 +98,7 @@ feature 'create a seating arrangement' do
     click_link "#{event.name}"
     click_link "Create Seating Arrangement"
 
-    expect(page).to have_content("Table 1 Seated: 8")
+    expect(page).to have_content("Table 1 - Seated: 8")
     expect(page).to have_content("Total Guests: 61")
 
   end
@@ -195,7 +195,7 @@ feature 'create a seating arrangement' do
     click_link "#{event.name}"
     click_link "Create Seating Arrangement"
 
-    expect(page).to have_content("Table 1 Seated: 10")
+    expect(page).to have_content("Table 1 - Seated: 10")
     expect(page).to have_content("Total Guests: 79")
 
   end
