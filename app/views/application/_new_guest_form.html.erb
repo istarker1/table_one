@@ -14,7 +14,7 @@
     </div>
 
     <div class="row">
-      <div class="medium-5 column universal-relationship">
+      <div class="medium-6 column universal-relationship">
         <label><%= f.label :relationship %>
             <div id="relationship-options"><%= f.select :relationship_id, @relationships %></div>
         </label>
@@ -28,7 +28,7 @@
         </label>
       </div> -->
 
-      <div class="medium-5 columns custom-relationship">
+      <div class="medium-6 columns custom-relationship">
         <label><%= f.label :relationship %>
             <%= f.text_field :relationship, value: "" %>
         </label>
@@ -36,12 +36,12 @@
     </div> <!-- class="row" -->
 
     <div class="row">
-      <fieldset class="medium-6 columns">
+      <fieldset class="medium-12 columns">
         <label><%= f.label :side %></label>
-        <% @event.sides.each do |s| %>
+        <div id="side_radio_buttons"><% @event.sides.each do |s| %>
           <%= f.radio_button :side, s.id %>
           <%= label :side, s.first_name %>
-        <% end %>
+        <% end %></div>
       </fieldset>
     </div>
 
@@ -54,7 +54,7 @@
     </div>
 
     <div class="row">
-      <div class="medium-6 columns" id="all_plusones">
+      <div class="medium-12 columns" id="all_plusones">
         <input id="plus_one_checkbox" type="checkbox"><label for="checkbox1">Add a Plus-One?</label>
         <%= render 'plusone_form' %>
       </div>

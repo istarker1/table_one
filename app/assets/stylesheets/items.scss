@@ -11,10 +11,12 @@ body {
 
 #all_plusones {
   list-style: none;
+  text-align: center;
 }
 
 #plusone_0 {
-  display: none
+  display: none;
+  text-align: center;
 }
 
 .form_background {
@@ -48,4 +50,8 @@ color: Gray;
 
 .actions {
   margin: 0px 15px;
+}
+
+#side_radio_buttons {
+  text-align: center;
 }
