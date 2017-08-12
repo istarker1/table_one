@@ -3,15 +3,6 @@ class ApplicationController < ActionController::Base
 
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
-
-  def user_logged_in?
-    if current_user
-      true
-    else
-      false
-    end
-  end
-
   helper_method :correct_user
   def check_for_user_event_host
     if !@event.users.include?(current_user)

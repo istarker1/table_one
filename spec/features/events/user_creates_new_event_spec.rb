@@ -1,8 +1,9 @@
 require 'rails_helper'
 
 feature 'create a new event' do
+  let!(:user) { FactoryGirl.create(:user) }
+
   scenario 'user adds an event' do
-    user = FactoryGirl.create(:user)
     visit root_path
     click_link 'Sign In'
     fill_in 'Email', with: "#{user.email}"
@@ -22,7 +23,6 @@ feature 'create a new event' do
   end
 
   scenario 'user missed field in event' do
-    user = FactoryGirl.create(:user)
     visit root_path
     click_link 'Sign In'
     fill_in 'Email', with: "#{user.email}"
@@ -30,7 +30,7 @@ feature 'create a new event' do
     click_button 'Log in'
     click_link 'Add an event'
     fill_in 'Name', with: "Super fun event"
-    # Don't fill in table size limit
+      # Don't fill in table size limit
     fill_in 'side_a_first_name', with: "John"
     fill_in 'side_a_last_name', with: "Smith"
     fill_in 'side_b_first_name', with: "Jane"
@@ -42,7 +42,6 @@ feature 'create a new event' do
   end
 
   scenario 'user misses field under event sides' do
-    user = FactoryGirl.create(:user)
     visit root_path
     click_link 'Sign In'
     fill_in 'Email', with: "#{user.email}"
@@ -52,8 +51,8 @@ feature 'create a new event' do
     fill_in 'Name', with: "Super fun event"
     fill_in 'Table size limit', with: 12
     fill_in 'side_a_first_name', with: "John"
-    # Don't fill in side_a last_name
-    # Don't fill in side_b first_name
+      # Don't fill in side_a last_name
+      # Don't fill in side_b first_name
     fill_in 'side_b_last_name', with: "Jones"
     click_button 'Create Event'
 

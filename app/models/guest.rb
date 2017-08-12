@@ -22,4 +22,8 @@ class Guest < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
+  def guest_saver
+
+  end
+
 end

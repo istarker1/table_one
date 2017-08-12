@@ -1,5 +1,9 @@
 class GuestsController < ApplicationController
 
+  before_action only: [:create, :edit, :update, :destroy] do
+    :authenticate_user!
+  end
+
   def new
     @create = true
     @event = Event.find(params[:event_id])
@@ -11,22 +15,22 @@ class GuestsController < ApplicationController
   end
 
   def create
-
     @event = Event.find(params[:event_id])
     @guest = Guest.new(guest_params)
     @guest.event_id = params[:event_id]
-    check_for_custom_relationship
+    @rel_manager = RelationshipManager.new(@guest, @event, params[:guest][:relationship])
+    @rel_manager.check_for_custom_relationship
     @plusone = Plusone.new(plusone_params)
-    if @guest.valid?
-      if @plusone.first_name == "" && @plusone.last_name == "" # no plusone data entered
-        valid_guest_no_plusone
-      elsif @plusone.valid?
-        valid_guest_valid_plusone
-      else
-        valid_guest_invalid_plusone
-      end
+    @g_p_mgr = GuestAndPlusoneManager.new(@guest, @plusone, @event)
+    data = @g_p_mgr.save
+    if !data.nil?
+      flash[:notice] = "Guest added!"
+      render json: data, status: :created #, location: guests_path(@guest) #???
     else
-      invalid_guest
+      @errors = @guest.errors.full_messages + @plusone.errors.full_messages
+      @relationships = @event.relationships
+      @plusone = Plusone.new if !@plusone.valid?
+      render action: 'new'
     end
   end
 
@@ -49,7 +53,8 @@ class GuestsController < ApplicationController
   def update
     @event, @guest = Event.find(params[:event_id]), Guest.find(params[:id])
     @plusone = @guest.plusones[0]
-    check_for_custom_relationship
+    @rel_manager = RelationshipManager.new(@guest, @event, params[:guest][:relationship])
+    @rel_manager.check_for_custom_relationship
     if @guest.update(guest_params)
       if !@plusone.nil?
         remove_or_update_plusone
@@ -74,8 +79,8 @@ class GuestsController < ApplicationController
     @event = Event.find(params[:id])
     @guest = Guest.find(params[:event_id]) # params is reversed here
     @plusones = @guest.plusones
-    @plusones.map { |p1| p1.delete }
-    @guest.delete
+    @plusones.each { |p1| p1.destroy }
+    @guest.destroy
     redirect_to @event
   end
 
@@ -91,56 +96,12 @@ class GuestsController < ApplicationController
     params.require(:plusone).permit(:first_name, :last_name, :notes)
   end
 
-  def check_for_custom_relationship
-    if @guest.guest_relationship.name == "Choose one or create your own"
-      @guest.relationship_id = create_custom_relationship(
-        params[:guest][:relationship], params[:event_id])
-    end
-  end
 
-  def create_custom_relationship(rel_name, event)
-    rel = Relationship.new(name: rel_name, event_id: event.to_i)
-    rel.id if rel.save
-  end
+  # @rel_manager = RelationshipManager.new( @instance_vars, etc)
+  # render json: @rel_manager.response, etc
 
-  def valid_guest_no_plusone
-    @guest.save
-    flash[:notice] = "Guest added!"
-    data = {full_name: @guest.full_name, guest_id: @guest.id, event_id: @event.id,
-      side: @guest.guest_side.first_name, relationship: @guest.relationship.name,
-      count: @event.guest_count, relationship_id: @guest.relationship.id,
-      type: "new"}
-    @event.relationships.any? == [@guest.relationship.name, @guest.relationship.id] ?
-      data[:relationship] = nil : data[:relationship] = @guest.relationship.name
-    render json: data, status: :created #, location: guests_path(@guest) #???
-  end
 
-  def valid_guest_valid_plusone
-    @guest.save
-    @plusone.guest = @guest
-    @plusone.save
-    data = {full_name: @guest.full_name, guest_id: @guest.id, event_id: @event.id,
-      side: @guest.guest_side.first_name, relationship: @guest.relationship.name,
-      plusone: "#{@guest.plusones[0].first_name} #{@guest.plusones[0].last_name}",
-      count: @event.guest_count, relationship_id: @guest.relationship.id,
-      type: "new"}
-    @event.relationships.any? == [@guest.relationship.name, @guest.relationship.id] ?
-      data[:relationship] = nil : data[:relationship] = @guest.relationship.name
-    render json: data, status: :created #, location: guests_path(@guest) #???
-  end
 
-  def valid_guest_invalid_plusone
-    @errors = @plusone.errors.full_messages
-    @relationships = @event.relationships
-    render action: 'new'
-  end
-
-  def invalid_guest
-    @errors = @guest.errors.full_messages
-    @relationships = @event.relationships
-    @plusone = Plusone.new
-    render action: 'new'
-  end
 
   def update_plusone
     @plusone.update(plusone_params)

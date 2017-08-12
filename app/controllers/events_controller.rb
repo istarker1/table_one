@@ -1,12 +1,12 @@
 class EventsController < ApplicationController
 
-  # before_action
+  before_action :authenticate_user!
 
   def index
-    if !user_logged_in?
+    if !user_signed_in?
       redirect_to new_user_session_path
     else
-      @title = "Table 1 - Events"
+      @title = "- Events"
       @events = current_user.events
     end
   end
@@ -20,7 +20,7 @@ class EventsController < ApplicationController
     @guest = Guest.new
     @relationship = Relationship.new
     @plusone = Plusone.new
-    @title = "#{@event.name}"
+    @title = @event.name
   end
 
   def new
@@ -79,13 +79,13 @@ class EventsController < ApplicationController
     @guests = @event.guests #array
     @sides = @event.sides # array
     @tables = @event.tables
-    @tables.map { |t| t.delete }
+    @tables.each { |t| t.destroy }
     @guests.each do |guest|
-      guest.plusones.map { |p1| p1.delete }
-      guest.delete
+      guest.plusones.each { |p1| p1.destroy }
+      guest.destroy
     end
-    @sides.map { |s| s.delete }
-    @event.delete
+    @sides.each { |s| s.destroy }
+    @event.destroy
     redirect_to events_path
   end
 
