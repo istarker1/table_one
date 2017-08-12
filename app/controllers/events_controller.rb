@@ -31,7 +31,7 @@ class EventsController < ApplicationController
   end
 
   def create
-    user_logged_in?
+    user_signed_in?
     @errors = nil
     @event = Event.new(event_params)
     @side_a, @side_b = Couple.new(side_a_params), Couple.new(side_b_params)
@@ -53,7 +53,7 @@ class EventsController < ApplicationController
   end
 
   def edit
-    user_logged_in?
+    user_signed_in?
     @event = Event.find(params[:id])
     check_for_user_event_host
     @side_a = Couple.find(@event.side_a)
@@ -62,7 +62,7 @@ class EventsController < ApplicationController
   end
 
   def update
-    user_logged_in?
+    user_signed_in?
     @event = Event.find(params[:id])
     check_for_user_event_host
     @side_a, @side_b = Couple.find(@event.side_a), Couple.find(@event.side_b)
@@ -73,7 +73,7 @@ class EventsController < ApplicationController
   end
 
   def destroy
-    user_logged_in?
+    user_signed_in?
     @event = Event.find(params[:id])
     check_for_user_event_host
     @guests = @event.guests #array

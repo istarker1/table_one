@@ -6,17 +6,38 @@ class GuestAndPlusoneManager
     @event = event
   end
 
-  def save
+  def new_guest_save
     if @guest.valid?
       if @plusone.first_name == "" && @plusone.last_name == "" # no plusone data entered
         valid_guest_no_plusone
       elsif @plusone.valid?
         valid_guest_valid_plusone
       else
-        valid_guest_invalid_plusone
+        invalid_guest_andor_plusone
       end
     else
-      invalid_guest
+      invalid_guest_andor_plusone
+    end
+  end
+
+  def edit_guest(guest_params, plusone_params)
+    binding.pry
+    if @guest.update(guest_params)
+      if !@plusone.nil?
+        remove_or_update_plusone(@guest, plusone_params)
+      elsif @plusone.nil? && plusone_params[:first_name] == "" && plusone_params[:last_name]== ""
+        "redirect"
+      else
+        @plusone = Plusone.new(plusone_params)
+        @plusone.guest_id = @guest.id
+        if @plusone.save
+          "redirect"
+        else
+          invalid_guest_andor_plusone
+        end
+      end
+    else
+      invalid_guest_andor_plusone
     end
   end
 
@@ -45,17 +66,34 @@ class GuestAndPlusoneManager
     data
   end
 
-  def valid_guest_invalid_plusone
-    @errors = @plusone.errors.full_messages
-    @relationships = @event.relationships
+  def invalid_guest_andor_plusone
     nil
   end
 
-  def invalid_guest
-    @errors = @guest.errors.full_messages
-    @relationships = @event.relationships
-    @plusone = Plusone.new
-    nil
+  def update_plusone
+    @plusone.update(plusone_params)
+    @plusone.update(guest_id: @guest.id)
+    "redirect"
   end
+
+  def remove_or_update_plusone(guest, plusone_params)
+    if plusone_params[:first_name] == "" && plusone_params[:last_name] == ""
+      @plusone.destroy
+      "redirect"
+    elsif plusone_params[:first_name] == "" || plusone_params[:last_name] == ""
+      invalid_guest_andor_plusone
+    else
+      @plusone.update(plusone_params)
+      @plusone.update(guest_id: guest.id)
+      "redirect"
+    end
+  end
+
+      # update just guest               - redirect_to
+      # update guest & update plusone   - redirect_to
+      # update guest & create plusone   - redirect_to
+      # update guest & delete plusone   - redirect_to
+      # invalid guest                   - render 'edit'
+      # invalid plusone                 - render 'edit'
 
 end

@@ -22,7 +22,7 @@ class GuestsController < ApplicationController
     @rel_manager.check_for_custom_relationship
     @plusone = Plusone.new(plusone_params)
     @g_p_mgr = GuestAndPlusoneManager.new(@guest, @plusone, @event)
-    data = @g_p_mgr.save
+    data = @g_p_mgr.new_guest_save
     if !data.nil?
       flash[:notice] = "Guest added!"
       render json: data, status: :created #, location: guests_path(@guest) #???
@@ -46,8 +46,6 @@ class GuestsController < ApplicationController
     @title = "Edit #{@guest.first_name} #{@guest.last_name}"
   end
 
-
-
   # if plusone does not already exist, create via plusone_params
 
   def update
@@ -55,24 +53,16 @@ class GuestsController < ApplicationController
     @plusone = @guest.plusones[0]
     @rel_manager = RelationshipManager.new(@guest, @event, params[:guest][:relationship])
     @rel_manager.check_for_custom_relationship
-    if @guest.update(guest_params)
-      if !@plusone.nil?
-        remove_or_update_plusone
-      elsif @plusone.nil? && plusone_params[:first_name] == "" && plusone_params[:last_name]== ""
-        redirect_to @event
-      else
-        @plusone = Plusone.new(plusone_params)
-        @plusone.guest_id = @guest.id
-        if @plusone.save
-          redirect_to @event
-        else
-          valid_guest_invalid_plusone
-        end
-      end
+    @g_p_mgr = GuestAndPlusoneManager.new(@guest, @plusone, @event)
+    to_do = @g_p_mgr.edit_guest(guest_params, plusone_params)
+    if !to_do.nil?
+      redirect_to @event
     else
-      invalid_guest
+      @errors = @event.errors.full_messages
+      @relationships = @event.relationships
+      @plusone = Plusone.new if @plusone.nil?
+      render action: 'edit'
     end
-    redirect_to @event
   end
 
   def destroy
@@ -94,29 +84,6 @@ class GuestsController < ApplicationController
 
   def plusone_params
     params.require(:plusone).permit(:first_name, :last_name, :notes)
-  end
-
-
-  # @rel_manager = RelationshipManager.new( @instance_vars, etc)
-  # render json: @rel_manager.response, etc
-
-
-
-
-  def update_plusone
-    @plusone.update(plusone_params)
-    @plusone.update(guest_id: @guest.id)
-    redirect_to @event
-  end
-
-  def remove_or_update_plusone
-    if plusone_params[:first_name] == "" && plusone_params[:last_name] == ""
-      @plusone.destroy
-    elsif plusone_params[:first_name] == "" || plusone_params[:last_name] == ""
-      valid_guest_invalid_plusone
-    else
-      @plusone.update(plusone_params)
-    end
   end
 
 end
