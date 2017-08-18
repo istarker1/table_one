@@ -10,10 +10,7 @@ feature 'editing a guest and plusone' do
     event.update(side_a: side_a.id, side_b: side_b.id)
     load "#{Rails.root}/db/seeds.rb"
     visit root_path
-    click_link 'Sign In'
-    fill_in 'Email', with: "#{user.email}"
-    fill_in 'Password', with: "#{user.password}"
-    click_button 'Log in'
+    sign_in(user)
     click_link "#{event.name}"
     fill_in 'guest_first_name', with: "Pops"
     fill_in 'guest_last_name', with: "Jones"

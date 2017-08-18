@@ -4,6 +4,7 @@ require 'database_cleaner'
 DatabaseCleaner.strategy = :truncation
 
 feature 'create a seating arrangement' do
+
   scenario 'user creates a simple seating arrangement' do
 
     DatabaseCleaner.clean
@@ -91,10 +92,7 @@ feature 'create a seating arrangement' do
   # END CREATE GUEST LIST
 
     visit root_path
-    click_link 'Sign In'
-    fill_in 'Email', with: "#{user.email}"
-    fill_in 'Password', with: "#{user.password}"
-    click_button 'Log in'
+    sign_in(user)
     click_link "#{event.name}"
     click_link "Create Seating Arrangement"
 
@@ -188,10 +186,7 @@ feature 'create a seating arrangement' do
   # END CREATE GUEST LIST
 
     visit root_path
-    click_link 'Sign In'
-    fill_in 'Email', with: "#{user.email}"
-    fill_in 'Password', with: "#{user.password}"
-    click_button 'Log in'
+    sign_in(user)
     click_link "#{event.name}"
     click_link "Create Seating Arrangement"
 
@@ -201,4 +196,4 @@ feature 'create a seating arrangement' do
   end
 end
 
-# spec/features/events/create_seating_chart_spec.rb
+# rspec spec/features/events/create_seating_chart_spec.rb

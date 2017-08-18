@@ -1,6 +1,7 @@
 <div class="form_background" id="edit_form">
   <%= flash[:notice] %>
-  <div class="row"><label><%= @event.name == nil ?
+  <%= render 'if_errors_block' %>
+  <div class="row"><label><%= @status == "create" ?
   "Add an Event" : "Edit #{@event.name}"%></label>
     <%= form_for(@event) do |f_event| %> <!-- Event data -->
         <div class="medium-6 columns">

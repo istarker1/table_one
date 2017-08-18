@@ -1,9 +1,11 @@
 class Event < ApplicationRecord
   has_many :hosts
   has_many :users, through: :hosts
-  has_many :guests
-  has_many :tables
-  has_many :plusones
+  has_many :guests, dependent: :destroy
+  has_many :tables, dependent: :destroy
+  has_many :plusones # destroying a Guest will also destroy its Plusone
+  has_many :couples, dependent: :destroy
+  has_many :relationships
 
   validates :name, :table_size_limit, presence: true
 

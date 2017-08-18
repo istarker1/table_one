@@ -13,10 +13,10 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
-    check_for_user_event_host        # to root_path if user is not tied to event
+    check_for_user_event_host       # to root_path if user is not tied to event
     @guests = @event.guests
     @relationships = @event.relationships
-    #------ for guest form
+    #------ for guest form {
     @guest = Guest.new
     @relationship = Relationship.new
     @plusone = Plusone.new
@@ -24,6 +24,7 @@ class EventsController < ApplicationController
   end
 
   def new
+    @status = "create" # to determine 'new' or 'edit' HTML in event view
     @event = Event.new
     @side_a = Couple.new
     @side_b = Couple.new
@@ -35,25 +36,20 @@ class EventsController < ApplicationController
     @errors = nil
     @event = Event.new(event_params)
     @side_a, @side_b = Couple.new(side_a_params), Couple.new(side_b_params)
-    if @event.save
-      @side_a.event = @event
-      @side_b.event = @event
-      if save_couple(@side_a, @side_b)
-        @host = Host.create(event_id: @event.id, user_id: current_user.id)
-        @event.update(side_a: @side_a.id, side_b: @side_b.id)
+    @event_manager = EventManager.new(@event, @side_a, @side_b, current_user)
+    if @event_manager.save_event
         flash[:notice] = "Event created!"
         redirect_to @event
-      else
-        render action: 'new'
-      end
     else
-      @errors = @event.errors.full_messages
+      @errors = @event.errors.full_messages + @side_a.errors.full_messages + @side_b.errors.full_messages
+      @status = "create"
       render action: 'new'
     end
   end
 
   def edit
     user_signed_in?
+    @status = "edit"
     @event = Event.find(params[:id])
     check_for_user_event_host
     @side_a = Couple.find(@event.side_a)
@@ -76,15 +72,8 @@ class EventsController < ApplicationController
     user_signed_in?
     @event = Event.find(params[:id])
     check_for_user_event_host
-    @guests = @event.guests #array
-    @sides = @event.sides # array
-    @tables = @event.tables
-    @tables.each { |t| t.destroy }
-    @guests.each do |guest|
-      guest.plusones.each { |p1| p1.destroy }
-      guest.destroy
-    end
-    @sides.each { |s| s.destroy }
+    @event.non_universal_relationships.each { |rel| rel.destroy }
+        # dependent: :destroy in event model would delete universal relationships too
     @event.destroy
     redirect_to events_path
   end

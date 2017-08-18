@@ -96,4 +96,5 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
+Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 end

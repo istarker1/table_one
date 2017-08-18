@@ -6,10 +6,7 @@ feature 'see events index' do
     event = FactoryGirl.create(:event)
     host = Host.create(user_id: user.id, event_id: event.id)
     visit root_path
-    click_link 'Sign In'
-    fill_in 'Email', with: "#{user.email}"
-    fill_in 'Password', with: "#{user.password}"
-    click_button 'Log in'
+    sign_in(user)
 
     expect(page).to have_content("Hello John!")
     expect(page).to have_content("#{event.name}")

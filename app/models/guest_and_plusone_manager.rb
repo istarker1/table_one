@@ -21,7 +21,6 @@ class GuestAndPlusoneManager
   end
 
   def edit_guest(guest_params, plusone_params)
-    binding.pry
     if @guest.update(guest_params)
       if !@plusone.nil?
         remove_or_update_plusone(@guest, plusone_params)

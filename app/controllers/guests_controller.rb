@@ -67,9 +67,7 @@ class GuestsController < ApplicationController
 
   def destroy
     @event = Event.find(params[:id])
-    @guest = Guest.find(params[:event_id]) # params is reversed here
-    @plusones = @guest.plusones
-    @plusones.each { |p1| p1.destroy }
+    @guest = Guest.find(params[:event_id]) # params are reversed here
     @guest.destroy
     redirect_to @event
   end
