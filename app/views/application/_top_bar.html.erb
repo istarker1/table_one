@@ -1,22 +1,29 @@
 <div class="top-bar">
 
   <div class="top-bar-left">
-    <ul class="menu horizontal" data-dropdown-menu>
+    <ul class="menu">
       <li id="logo">1</li>
       <li><%= link_to "Table One", events_path, class: "menu-text", id: "title"%></li>
     </ul>
   </div>
-  <div class="top-bar-right">
-    <ul class="menu horizontal">
-      <% if current_user %>
-        <li class="menu-text"><%= "Hello #{current_user.first_name}!" %></li>
-        <li><%= link_to "Edit Profile", edit_user_registration_path, class: "menu-text" %></li>
-        <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete,
-          data: { confirm: "Are you sure?" }, class: "menu-text"%></li>
-      <% else %>
-        <li><%= link_to "Sign In", new_user_session_path, class: "menu-text" %></li>
-        <li><%= link_to "Sign Up", new_user_registration_path, class: "menu-text" %></li>
-      <% end %>
+
+  <div class="top-bar-right medium-6">
+    <ul class="dropdown menu" data-dropdown-menu>
+      <li class="menu-text", id="hello_user"><%= "Hello #{current_user.first_name}!" %></li>
+      <li>
+        <a class="menu-text", id="profile_dropdown" href="#">Profile</a>
+        <ul class="menu vertical">
+          <% if current_user %>
+            <li><%= link_to "Edit Profile", edit_user_registration_path, class: "menu-text" %></li>
+            <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete,
+              data: { confirm: "Are you sure?" }, class: "menu-text"%></li>
+          <% else %>
+            <li><%= link_to "Sign In", new_user_session_path, class: "menu-text" %></li>
+            <li><%= link_to "Sign Up", new_user_registration_path, class: "menu-text" %></li>
+          <% end %>
+        </ul>
+      </li>
     </ul>
   </div>
+
 </div>

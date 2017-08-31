@@ -1,8 +1,12 @@
 body {
   background-image: url("https://s3.us-east-2.amazonaws.com/tableone/6150.jpg");
-  background-size: 100%;
   background-repeat: no-repeat;
   background-attachment: fixed;
+
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 .event-list {
@@ -11,7 +15,7 @@ body {
 
 #all_plusones {
   list-style: none;
-  text-align: center;
+  // text-align: center;
 }
 
 #plusone_0 {
@@ -29,15 +33,19 @@ body {
   background: rgba(173, 216, 230, 0.8);
 }
 
+.plusone_form {
+  margin: auto;
+}
+
 .button {
   background-color: #BC4676;
   background: rgba(188, 70, 118, 0.8);
 }
 
-label {
+label, i, em{
   text-align: center;
   font-family: cursive;
-  font-size: 15px;
+  font-size: 18px;
 }
 
 #remember_me {

@@ -1,10 +1,4 @@
-// var hide = (form) => {
-//   $(form).css('visibility','hidden');
-// }
-//
-// var show = (form) => {
-//   $(form).css('visibility', 'visible');
-// }
+
 
 var clear_guest_data = () => {
   $("#guest_first_name").val("");
@@ -43,7 +37,7 @@ var append_guest_list = (form, data) => {
 
 // for appending relationship dropdown
 var append_relationship_list = (form, data) => {
-  if (data.relationship !== undefined) {
+  if (data.relationship !== null) {
     $(`#${form}`).append(`<option value="${data.relationship_id}">${data.relationship}</option>`)
     relationship_dropdown = document.getElementById(`${form}`);
     last_index = relationship_dropdown.length - 1;
@@ -58,6 +52,14 @@ $(document).ready(function() {
 $("#plus_one_checkbox").click(function() {
   $("#plusone_0").toggle();
 });
+
+$(".universal-relationship").change(function() {
+  if ($(".universal-relationship option:selected").text() != "Choose one or create your own") {
+    $(".custom-relationship").fadeOut(400);
+  } else {
+    $(".custom-relationship").fadeIn(400);
+  }
+})
 
 return $(".new_guest").on("ajax:success", function(e, data, status, xhr) {
   // alert("Works");

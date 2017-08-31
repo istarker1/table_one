@@ -15,11 +15,12 @@
         <td><%= "#{guest.guest_side.first_name}" %></td>
         <td><%= "#{guest.guest_relationship.name}" %></td>
         <td><%= "#{guest.plusones[0].first_name} #{guest.plusones[0].last_name}" if guest.plusones != [] %>
-        <td><%= link_to "Edit", edit_event_guest_path(guest) %> /
+        <td><%= link_to "Edit", edit_event_guest_path(guest.event, guest) %> /
           <%= link_to "Delete", event_guest_path(guest), id: "delete_#{guest.id}",
           method: :delete, data: { confirm: 'This will delete the guest and any associated plus-ones. Are you sure?'} %>
         </td>
       </tr>
+      <!-- edit_guest_path(guest) -->
     <% end %>
   </tbody>
 </table>

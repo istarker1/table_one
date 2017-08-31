@@ -1,8 +1,6 @@
 .menu-text {
   background-color: #191970;
   color: white;
-  padding: 0px, 17px;
-  margin: 0px, 17px;
 }
 
 #logo {
@@ -17,7 +15,7 @@
 
 
 #title {
-  font-family: Snell Roundhand, cursive;
+  font-family: "Snell Roundhand", cursive;
   font-size: 30px;
   padding-top: 17px;
   padding-bottom: 17px;
@@ -33,4 +31,17 @@
 
 .top-bar-right {
   padding-top: 13px;
+  display: inline-block;
+}
+
+#hello_user {
+  display: none;
+}
+
+
+@media screen and (min-width: 40em) {
+  #hello_user {
+    display: table-cell;
+  }
+
 }

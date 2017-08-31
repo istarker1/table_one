@@ -42,12 +42,17 @@ class GuestAndPlusoneManager
 
   def valid_guest_no_plusone
     @guest.save
-    data = {full_name: @guest.full_name, guest_id: @guest.id, event_id: @event.id,
+    data = {
+      full_name: @guest.full_name, guest_id: @guest.id, event_id: @event.id,
       side: @guest.guest_side.first_name, relationship: @guest.relationship.name,
       count: @event.guest_count, relationship_id: @guest.relationship.id,
-      type: "new"}
-    @event.relationships.any? == [@guest.relationship.name, @guest.relationship.id] ?
-      data[:relationship] = nil : data[:relationship] = @guest.relationship.name
+      type: "new"
+    }
+    if @event.relationships.any? { |rel| rel == [@guest.relationship.name, @guest.relationship.id] }
+      data[:relationship] = nil
+    else
+      data[:relationship] = @guest.relationship.name
+    end
     data
   end
 
@@ -55,13 +60,18 @@ class GuestAndPlusoneManager
     @guest.save
     @plusone.guest = @guest
     @plusone.save
-    data = {full_name: @guest.full_name, guest_id: @guest.id, event_id: @event.id,
+    data = {
+      full_name: @guest.full_name, guest_id: @guest.id, event_id: @event.id,
       side: @guest.guest_side.first_name, relationship: @guest.relationship.name,
       plusone: "#{@guest.plusones[0].first_name} #{@guest.plusones[0].last_name}",
       count: @event.guest_count, relationship_id: @guest.relationship.id,
-      type: "new"}
-    @event.relationships.any? == [@guest.relationship.name, @guest.relationship.id] ?
-      data[:relationship] = nil : data[:relationship] = @guest.relationship.name
+      type: "new"
+    }
+    if @event.relationships.any? { |rel| rel == [@guest.relationship.name, @guest.relationship.id] }
+      data[:relationship] = nil
+    else
+      data[:relationship] = @guest.relationship.name
+    end
     data
   end
 

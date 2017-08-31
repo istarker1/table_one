@@ -9,6 +9,8 @@ class RelationshipManager
   def check_for_custom_relationship
     if @guest.guest_relationship.name == "Choose one or create your own"
       @guest.relationship_id = create_custom_relationship
+    else
+      false
     end
   end
 

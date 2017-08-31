@@ -1,15 +1,21 @@
 <li id="plusone_0">
   <%= fields_for(@plusone) do |plus_one| %>
     <div class="medium-6 columns">
-      <label><%= plus_one.label :first_name %>
-          <%= plus_one.text_field :first_name %><br />
-      </label>
-      <label><%= plus_one.label :last_name %>
-          <%= plus_one.text_field :last_name %><br />
-      </label>
-      <label><%= plus_one.label :notes %>
-          <%= plus_one.text_area :notes %><br />
-      </label>
+      <div class="row">
+        <label><%= plus_one.label :first_name %>
+            <%= plus_one.text_field :first_name %><br />
+        </label>
+      </div>
+      <div class="row">
+        <label><%= plus_one.label :last_name %>
+            <%= plus_one.text_field :last_name %><br />
+        </label>
+      </div>
+      <div class="row">
+        <label><%= plus_one.label :notes %>
+            <%= plus_one.text_area :notes %><br />
+        </label>
+      </div>
     </div>
   <% end %>
 </li>
